@@ -1,3 +1,7 @@
+const Validator = require('./Validator');
+const ErrorBag = require('./ErrorBag');
+const axios = require('axios');
+
 class Form {
   constructor(url, fields, customErrorMessages, clearOnSuccess) {
     this.errors = new ErrorBag;
