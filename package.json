@@ -1,0 +1,22 @@
+{
+  "name": "form-spine",
+  "version": "0.5.0",
+  "description": "A lightweight form class with error handling, validation, and http requests (using Axios)",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LasseRafn/form-spine.git"
+  },
+  "keywords": [
+    "form",
+    "validation",
+    "ajax",
+    "fetch"
+  ],
+  "author": "Lasse Rafn <lasserafn@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LasseRafn/form-spine/issues"
+  },
+  "homepage": "https://github.com/LasseRafn/form-spine#readme"
+}
