@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/LasseRafn/form-spine/issues"
   },
-  "homepage": "https://github.com/LasseRafn/form-spine#readme"
+  "homepage": "https://github.com/LasseRafn/form-spine#readme",
+  "dependencies": {
+    "axios": "^0.15.3"
+  }
 }

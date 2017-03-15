@@ -93,4 +93,6 @@ class Form {
   }
 }
 
-module.export = Form;
+module.exports = Form;
+
+module.exports.default = Form;
