@@ -8,8 +8,27 @@ It's promise-based, which makes running scripts on error/success very easy.
 
 ## Getting Started
 
-...
+### Adding To Your Project
 
+Adding Form Spine to your project requires NPM. Optinally you could use [Yarn](https://yarnpkg.com).
+
+Run the following command in your project root:
+```bash
+npm install form-spine --save
+```
+
+Or with Yarn:
+```bash
+yarn add form-spine
+```
+
+### Using In Your Project
+
+To use Form Spine in your project, you must require it, like this:
+
+```js
+const FormSpine = require("form-spine");
+```
 
 ## Usage
 
