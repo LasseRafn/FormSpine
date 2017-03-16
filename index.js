@@ -1,1 +1,3 @@
-module.exports = require('./src/Form');
+import FormSpine from './src/FormSpine'
+
+export default FormSpine;
