@@ -15,6 +15,8 @@ It's promise-based, which makes running scripts on error/success very easy.
 
 ### Vue.js example
 ```js
+const FormSpine = require("form-spine");
+
 let formFields = {
     todo_text: {
         required: true,
