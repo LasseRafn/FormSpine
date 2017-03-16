@@ -2,7 +2,7 @@
     <img src="https://cdn.rawgit.com/LasseRafn/form-spine/c6906cf4/logo.svg" width="508" height="112" alt="Form Spine Logo" />
 </p>
     
-Form Spine is a lightweight (`~4kb`) JavaScript form library with validation, error handling and ajax requests (based on [unfetch](https://github.com/developit/unfetch))
+Form Spine is a lightweight (`~4kb`, ~1.3kb gzipped) JavaScript form library with validation, error handling and ajax requests (based on [unfetch](https://github.com/developit/unfetch))
 
 It's promise-based, which makes running scripts on error/success very easy.
 
@@ -25,7 +25,7 @@ let formFields = {
 new Vue({
     el: "#app",
     data: {
-        form: new Form('/create-todo', formFields);
+        form: new FormSpine('/create-todo', formFields);
     },
     
     methods: {
@@ -39,9 +39,9 @@ new Vue({
 
 ## Documentation
 
-### The `Form` Class
+### The `FormSpine` Class
 
-The `Form` class is the backbone of Form Spine and the class you'll be using.
+The `FormSpine` class is the backbone of Form Spine and the class you'll be using.
 
 #### Methods
 
@@ -88,7 +88,7 @@ let fields = {
 };
 
 // Init form
-let formObject = new Form('/submit', fields);
+let formObject = new FormSpine('/submit', fields);
 ```
 
 **Possible field attributes are:**
@@ -120,7 +120,7 @@ let customMessages = {
 };
 
 // Init form
-let formObject = new Form('/submit', {}, customMessages);
+let formObject = new FormSpine('/submit', {}, customMessages);
 ```
 
 ## Inspiration
