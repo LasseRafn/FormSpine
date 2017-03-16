@@ -1,12 +1,12 @@
-// var Validator = require('./Validator');
-// var ErrorBag = require('./ErrorBag');
+var Validator = require('./Validator');
+var ErrorBag = require('./ErrorBag');
 var fetch = require('unfetch');
 
 function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
-		// this.errors = new ErrorBag;
+		this.errors = new ErrorBag;
 		this.setupFields(fields);
 		this.url = url;
-		// this.validator = new Validator(customErrorMessages);
+		this.validator = new Validator(customErrorMessages);
 		this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
 
 	this.setupFields = function(fields) {
@@ -63,7 +63,7 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 				resolve(response.data);
 
 				return true;
-			}).catch((error) => {
+			}).catch(function(error) {
 				var responseError = "";
 
 				if (error.response !== undefined && error.response.data !== undefined && typeof error.response.data === "object") {

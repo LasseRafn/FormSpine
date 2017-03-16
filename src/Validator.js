@@ -1,25 +1,24 @@
-class Validator {
-	constructor(customMessages) {
-		this.messages = {
-			regex: "The :field field is invalid.",
-			required: "The :field field is required.",
-			no_digits: "The :field field may not contain digits.",
-			only_digits: "The :field field may only contain digits.",
-			must_match: "The :field field match the :must_match field.",
-			min_length: "The :field field must be at least :min_length characters.",
-			max_length: "The :field field must not be longer than :max_length characters."
-		};
-		if (customMessages !== undefined) {
-			for (let message in customMessages) {
-				this.messages[message] = customMessages[message];
-			}
-		}
+function Validator(customMessages) {
+	this.messages = {
+		regex: "The :field field is invalid.",
+		required: "The :field field is required.",
+		no_digits: "The :field field may not contain digits.",
+		only_digits: "The :field field may only contain digits.",
+		must_match: "The :field field match the :must_match field.",
+		min_length: "The :field field must be at least :min_length characters.",
+		max_length: "The :field field must not be longer than :max_length characters."
 	};
 
-	validate(fields) {
-		let errors = {};
-		for (let field in fields) {
-			let validateResult = this.validateField(fields[field], fields);
+	if (customMessages !== undefined) {
+		for (var message in customMessages) {
+			this.messages[message] = customMessages[message];
+		}
+	}
+
+	this.validate = function (fields) {
+		var errors = {};
+		for (var field in fields) {
+			var validateResult = this.validateField(fields[field], fields);
 			if (validateResult.length > 0) {
 				errors[field] = validateResult;
 			}
@@ -27,8 +26,8 @@ class Validator {
 		return errors;
 	};
 
-	validateField(field, fields) {
-		let errors = [];
+	this.validateField = function (field, fields) {
+		var errors = [];
 		if (field.min_length && field.value.length < field.min_length) {
 			errors.push(this.makeMessage(field.name, "min_length", {
 				min_length: field.min_length
@@ -59,10 +58,10 @@ class Validator {
 		return errors;
 	};
 
-	makeMessage(field, type, data) {
-		let message = this.messages[type];
+	this.makeMessage = function (field, type, data) {
+		var message = this.messages[type];
 		message = message.replace(":field", field);
-		for (let item in data) {
+		for (var item in data) {
 			message = message.replace(":" + item, data[item]);
 		}
 		return message;
