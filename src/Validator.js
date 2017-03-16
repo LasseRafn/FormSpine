@@ -1,21 +1,22 @@
-export default function Validator(customMessages) {
-	this.messages = {
-		regex: "The :field field is invalid.",
-		required: "The :field field is required.",
-		no_digits: "The :field field may not contain digits.",
-		only_digits: "The :field field may only contain digits.",
-		must_match: "The :field field match the :must_match field.",
-		min_length: "The :field field must be at least :min_length characters.",
-		max_length: "The :field field must not be longer than :max_length characters."
+export default class Validator {
+	constructor(customMessages) {
+		this.messages = {
+			regex: "The :field field is invalid.",
+			required: "The :field field is required.",
+			no_digits: "The :field field may not contain digits.",
+			only_digits: "The :field field may only contain digits.",
+			must_match: "The :field field match the :must_match field.",
+			min_length: "The :field field must be at least :min_length characters.",
+			max_length: "The :field field must not be longer than :max_length characters."
+		};
+		if (customMessages !== undefined) {
+			for (let message in customMessages) {
+				this.messages[message] = customMessages[message];
+			}
+		}
 	};
 
-	if (customMessages !== undefined) {
-		for (let message in customMessages) {
-			this.messages[message] = customMessages[message];
-		}
-	}
-
-	this.validate = function (fields) {
+	validate(fields) {
 		let errors = {};
 		for (let field in fields) {
 			let validateResult = this.validateField(fields[field], fields);
@@ -26,7 +27,7 @@ export default function Validator(customMessages) {
 		return errors;
 	};
 
-	this.validateField = function (field, fields) {
+	validateField(field, fields) {
 		let errors = [];
 		if (field.min_length && field.value.length < field.min_length) {
 			errors.push(this.makeMessage(field.name, "min_length", {
@@ -58,7 +59,7 @@ export default function Validator(customMessages) {
 		return errors;
 	};
 
-	this.makeMessage = function (field, type, data) {
+	makeMessage(field, type, data) {
 		let message = this.messages[type];
 		message = message.replace(":field", field);
 		for (let item in data) {
