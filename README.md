@@ -25,7 +25,8 @@ The `Form` class is the backbone of Form Spine and the class you'll be using.
 | ---- |----- | ----------- |--------- | ------- |
 | `url` | string | The url that requests should be send to. | true | `''` |
 | `fields` | object | The fields in the form. | true | `{}` |
-| `customMessages` | object | Custom validation messages. | false | `{}` |
+| `customErrorMessages` | object | Custom validation messages. | false | `{}` |
+| `clearOnSuccess` | boolean | Determines if form fields should be cleared on success. | false | false |
 
 ##### `url` [REQUIRED]
 
