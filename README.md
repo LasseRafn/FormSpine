@@ -1,5 +1,10 @@
-<p align="center">
-    <img src="https://cdn.rawgit.com/LasseRafn/form-spine/c6906cf4/logo.svg" width="508" height="112" alt="Form Spine Logo" />
+<p align="center" style="text-align: center;">
+<a href="http://lasserafn.github.io/form-spine/"><img src="https://cdn.rawgit.com/LasseRafn/form-spine/c6906cf4/logo.svg" width="508" height="112" alt="Form Spine Logo" /></a>
+</p>
+
+<p align="center" style="text-align: center;">
+<a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/v/form-spine.svg" /></a>
+<a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/dt/form-spine.svg" /></a>
 </p>
     
 Form Spine is a lightweight (`~4kb`, ~1.4kb gzipped) JavaScript form library with validation, error handling and ajax requests (based on [unfetch](https://github.com/developit/unfetch))
