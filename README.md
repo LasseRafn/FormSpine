@@ -25,7 +25,7 @@ let formFields = {
 new Vue({
     el: "#app",
     data: {
-        form: new Form('/create-todo', formFields);
+        form: new FormSpine('/create-todo', formFields);
     },
     
     methods: {
@@ -39,9 +39,9 @@ new Vue({
 
 ## Documentation
 
-### The `Form` Class
+### The `FormSpine` Class
 
-The `Form` class is the backbone of Form Spine and the class you'll be using.
+The `FormSpine` class is the backbone of Form Spine and the class you'll be using.
 
 #### Methods
 
@@ -88,7 +88,7 @@ let fields = {
 };
 
 // Init form
-let formObject = new Form('/submit', fields);
+let formObject = new FormSpine('/submit', fields);
 ```
 
 **Possible field attributes are:**
@@ -120,7 +120,7 @@ let customMessages = {
 };
 
 // Init form
-let formObject = new Form('/submit', {}, customMessages);
+let formObject = new FormSpine('/submit', {}, customMessages);
 ```
 
 ## Inspiration
