@@ -17,6 +17,7 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 
 	this.validate = function () {
 		this.errors.clear();
+
 		return this.validator.validate(this.fields);
 	};
 
@@ -43,23 +44,25 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 	};
 
 	this.submit = function (method) {
+		var self = this;
+
 		return new Promise(function (resolve, reject) {
-			var validationResponse = this.validate();
+			var validationResponse = self.validate();
 
 			if (Object.keys(validationResponse).length > 0) {
-				this.errors.set(validationResponse);
+				self.errors.set(validationResponse);
 				reject(validationResponse);
 
 				return false;
 			}
 
-			fetch(this.url, {
+			fetch(self.url, {
 				method: method.toUpperCase(),
 				credentials: 'include',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(this.data())
+				body: JSON.stringify(self.data())
 			}).then(function (response) {
 				if (response.ok) {
 					return response;
@@ -67,7 +70,7 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 					return Promise.reject(response.json());
 				}
 			}).then(function (response) {
-				this.onSuccess(response.json());
+				self.onSuccess(response.json());
 				resolve(response.json());
 			}).catch(function(response)
 			{
@@ -79,7 +82,7 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 					responseError = response.responseText;
 				}
 
-				this.onFail(responseError);
+				self.onFail(responseError);
 				reject(responseError);
 
 				return false;
