@@ -1,6 +1,6 @@
 {
   "name": "form-spine",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "A lightweight form class with error handling, validation, and http requests (using Axios)",
   "main": "index.js",
   "repository": {
