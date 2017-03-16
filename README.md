@@ -4,6 +4,8 @@
     
 Form Spine is a lightweight (`~4kb`) JavaScript form library with validation, error handling and ajax requests (based on [unfetch](https://github.com/developit/unfetch))
 
+It's promise-based, which makes running scripts on error/success very easy.
+
 ## Getting Started
 
 ...
@@ -89,3 +91,13 @@ let customMessages = {
 // Init form
 let formObject = new Form('/submit', {}, customMessages);
 ```
+
+## Inspiration
+Form Spine is inspired heavily on [laracasts/vue-forms](https://github.com/laracasts/Vue-Forms)
+
+If you're into learning, you should really go signup at [Laracasts](https://laracasts.com)
+
+(I'm in no way affiliated or sponsored by Laracasts!)
+
+## Motivation
+I found myself creating similar classes for every new project I started, so I felt it was time to combine everything into a single class that I could use for almost all my projects. Of cause, in the nature of sharing, I decided to open source it.
