@@ -13,7 +13,28 @@ It's promise-based, which makes running scripts on error/success very easy.
 
 ## Usage
 
-..
+### Vue.js example
+```js
+let formFields = {
+    todo_text: {
+        required: true,
+        max_length: 50
+    }
+};
+
+new Vue({
+    el: "#app",
+    data: {
+        form: new Form('/create-todo', formFields);
+    },
+    
+    methods: {
+        submit: function() {
+            this.form.post().then(() => alert('Done!'));
+        }
+    }
+});
+```
 
 
 ## Documentation
@@ -22,7 +43,17 @@ It's promise-based, which makes running scripts on error/success very easy.
 
 The `Form` class is the backbone of Form Spine and the class you'll be using.
 
+#### Methods
+
+| Method | Description | Parameters |
+| ------ | ----------- | ---------- |
+| `post` | Sends a `POST` request to the url specified in the Form object |  |
+| `delete` | Sends a `DELETE`/`DESTROY` request to the url specified in the Form object |  |
+| `put` | Sends a `PUT` request to the url specified in the Form object |  |
+| `submit` | Sends a request with the `type` specified, to the url specified in the Form object | `type`: Any request type possible in the fetch api. Example: `form.submit('GET')` |
+
 #### Parameters
+
 | Name | Type | Description | Required | Default |
 | ---- |----- | ----------- |--------- | ------- |
 | `url` | string | The url that requests should be send to. | true | `''` |
