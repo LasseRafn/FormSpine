@@ -1,5 +1,5 @@
-const Validator = require('./Validator');
-const ErrorBag = require('./Errorbag');
+import ErrorBag from './ErrorBag';
+import Validator from './Validator';
 const fetch = require('unfetch');
 
 export default class FormSpine {

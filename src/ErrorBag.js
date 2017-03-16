@@ -1,4 +1,4 @@
-export default class Errorbag {
+export default class ErrorBag {
 	constructor() {
 		this.errors = {};
 	}
