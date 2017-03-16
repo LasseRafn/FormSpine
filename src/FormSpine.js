@@ -1,17 +1,15 @@
-import ErrorBag from './ErrorBag';
 import Validator from './Validator';
-const fetch = require('unfetch');
+import ErrorBag from './ErrorBag';
+import fetch from 'unfetch';
 
-export default class FormSpine {
-	constructor(url, fields, customErrorMessages, clearOnSuccess) {
-		this.errors = new ErrorBag;
-		this.setupFields(fields);
-		this.url = url;
-		this.validator = new Validator(customErrorMessages);
-		this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
-	};
+export default function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
+	this.errors = new ErrorBag;
+	this.setupFields(fields);
+	this.url = url;
+	this.validator = new Validator(customErrorMessages);
+	this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
 
-	setupFields(fields) {
+	this.setupFields = function (fields) {
 		this.fields = {};
 		this.originalValues = {};
 		for (let field in fields) {
@@ -23,12 +21,12 @@ export default class FormSpine {
 		}
 	};
 
-	validate() {
+	this.validate = function () {
 		this.errors.clear();
 		return this.validator.validate(this.fields);
 	};
 
-	data() {
+	this.data = function () {
 		let formData = {};
 		for (let field in this.fields) {
 			formData[field] = this.fields[field].value;
@@ -36,21 +34,21 @@ export default class FormSpine {
 		return formData;
 	};
 
-	clear() {
+	this.clear = function () {
 		for (let field in this.fields) {
 			this.fields[field].value = "";
 		}
 		this.errors.clear();
 	};
 
-	reset() {
+	this.reset = function () {
 		for (let field in this.fields) {
 			this.fields[field].value = this.originalValues[field];
 		}
 		this.errors.clear();
 	};
 
-	submit(method) {
+	this.submit = function (method) {
 		return new Promise((resolve, reject) => {
 			const validationResponse = this.validate();
 
@@ -80,13 +78,13 @@ export default class FormSpine {
 		});
 	};
 
-	onSuccess(data) {
+	this.onSuccess = function (data) {
 		if (this.clearOnSuccess) {
 			this.reset();
 		}
 	};
 
-	onFail(errors) {
+	this.onFail = function (errors) {
 		if (typeof errors === "string") {
 			errors = {
 				general: [errors]
@@ -95,15 +93,15 @@ export default class FormSpine {
 		this.errors.set(errors);
 	};
 
-	post() {
+	this.post = function () {
 		return this.submit("post");
 	};
 
-	delete() {
+	this.delete = function () {
 		return this.submit("delete");
 	};
 
-	put() {
+	this.put = function () {
 		return this.submit("put");
 	};
 }
