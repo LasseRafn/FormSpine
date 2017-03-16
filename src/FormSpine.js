@@ -65,6 +65,7 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 				},
 				body: JSON.stringify(self.data())
 			}).then(function (response) {
+				console.log(response);
 				if (response.ok) {
 					return response;
 				} else {
