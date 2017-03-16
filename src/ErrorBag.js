@@ -1,16 +1,24 @@
 function ErrorBag() {
-	this.errors = {};
-
 	this.count = function () {
 		return Object.keys(this.errors).length;
 	};
 
 	this.has = function (field) {
-		return this.errors.hasOwnProperty(field);
+		if(field === undefined)
+		{
+			return false;
+		}
+
+		return this.errors[field] !== undefined;
 	};
 
 	this.get = function (field) {
-		return this.errors.hasOwnProperty(field) ? this.errors[field] : [];
+		if(field === undefined)
+		{
+			return [];
+		}
+
+		return this.errors[field] !== undefined ? this.errors[field] : [];
 	};
 
 	this.first = function (field) {
@@ -20,6 +28,12 @@ function ErrorBag() {
 	};
 
 	this.set = function (errors) {
+		for(var error in errors) {
+			if(typeof errors[error] === "string") {
+				errors[error] = [errors[error]];
+			}
+		}
+
 		this.errors = errors;
 	};
 
@@ -31,6 +45,8 @@ function ErrorBag() {
 
 		this.errors = {};
 	};
+
+	this.errors = {};
 }
 
 module.exports = ErrorBag;

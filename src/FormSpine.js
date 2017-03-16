@@ -65,29 +65,30 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 				},
 				body: JSON.stringify(self.data())
 			}).then(function (response) {
-				console.log(response);
 				if (response.ok) {
 					return response;
 				} else {
-					return Promise.reject(response.json());
+					return Promise.reject(response);
 				}
 			}).then(function (response) {
-				self.onSuccess(response.json());
-				resolve(response.json());
-			}).catch(function(response)
-			{
-				var responseError = "";
-
-				if (response.json() !== undefined) {
-					responseError = response.json();
-				} else {
-					responseError = response.responseText;
+				return response.json();
+			}).then(function (data) {
+				self.onSuccess(data);
+				resolve(data);
+			}).catch(function (response) {
+				if (response.ok !== undefined) {
+					response.json().then(function (data) {
+						self.onFail(data);
+						reject(data);
+					}).catch(function (data) {
+						self.onFail(response.statusText);
+						reject(response.statusText);
+					});
 				}
-
-				self.onFail(responseError);
-				reject(responseError);
-
-				return false;
+				else {
+					self.onFail(response.target.responseText);
+					reject(response.target.responseText);
+				}
 			});
 		});
 	};
@@ -104,7 +105,10 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 				general: [errors]
 			};
 		}
-		this.errors.set(errors);
+
+		if (errors !== undefined) {
+			this.errors.set(errors);
+		}
 	};
 
 	this.post = function () {
