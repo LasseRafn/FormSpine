@@ -1,4 +1,4 @@
-const Form = require('./Form');
+const Form = require('./src/Form');
 
 module.exports = Form;
 

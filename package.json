@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/LasseRafn/form-spine#readme",
   "dependencies": {
-    "axios": "^0.15.3"
+    "unfetch": "^2.1.2"
   }
 }
