@@ -3,13 +3,7 @@ var ErrorBag = require('./ErrorBag');
 var fetch = require('unfetch');
 
 function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
-		this.errors = new ErrorBag;
-		this.setupFields(fields);
-		this.url = url;
-		this.validator = new Validator(customErrorMessages);
-		this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
-
-	this.setupFields = function(fields) {
+	this.setupFields = function (fields) {
 		this.fields = {};
 		this.originalValues = {};
 		for (var field in fields) {
@@ -21,12 +15,12 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		}
 	};
 
-	this.validate = function() {
+	this.validate = function () {
 		this.errors.clear();
 		return this.validator.validate(this.fields);
 	};
 
-	this.data = function() {
+	this.data = function () {
 		var formData = {};
 		for (var field in this.fields) {
 			formData[field] = this.fields[field].value;
@@ -34,22 +28,22 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		return formData;
 	};
 
-	this.clear = function() {
+	this.clear = function () {
 		for (var field in this.fields) {
 			this.fields[field].value = "";
 		}
 		this.errors.clear();
 	};
 
-	this.reset = function() {
+	this.reset = function () {
 		for (var field in this.fields) {
 			this.fields[field].value = this.originalValues[field];
 		}
 		this.errors.clear();
 	};
 
-	this.submit = function(method) {
-		return new Promise(function(resolve, reject) {
+	this.submit = function (method) {
+		return new Promise(function (resolve, reject) {
 			var validationResponse = this.validate();
 
 			if (Object.keys(validationResponse).length > 0) {
@@ -58,18 +52,31 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 
 				return false;
 			}
-			fetch[method](this.url, this.data()).then(function(response) {
-				this.onSuccess(response.data);
-				resolve(response.data);
 
-				return true;
-			}).catch(function(error) {
+			fetch(this.url, {
+				method: method.toUpperCase(),
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(this.data())
+			}).then(function (response) {
+				if (response.ok) {
+					return response;
+				} else {
+					return Promise.reject(response.json());
+				}
+			}).then(function (response) {
+				this.onSuccess(response.json());
+				resolve(response.json());
+			}).catch(function(response)
+			{
 				var responseError = "";
 
-				if (error.response !== undefined && error.response.data !== undefined && typeof error.response.data === "object") {
-					responseError = error.response.data;
+				if (response.json() !== undefined) {
+					responseError = response.json();
 				} else {
-					responseError = error.response.statusText;
+					responseError = response.responseText;
 				}
 
 				this.onFail(responseError);
@@ -80,13 +87,13 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		});
 	};
 
-	this.onSuccess = function(data) {
+	this.onSuccess = function (data) {
 		if (this.clearOnSuccess) {
 			this.reset();
 		}
 	};
 
-	this.onFail = function(errors) {
+	this.onFail = function (errors) {
 		if (typeof errors === "string") {
 			errors = {
 				general: [errors]
@@ -95,17 +102,23 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		this.errors.set(errors);
 	};
 
-	this.post = function() {
+	this.post = function () {
 		return this.submit("post");
 	};
 
-	this.delete = function() {
+	this.delete = function () {
 		return this.submit("delete");
 	};
 
-	this.put = function() {
+	this.put = function () {
 		return this.submit("put");
 	};
+
+	this.errors = new ErrorBag;
+	this.setupFields(fields);
+	this.url = url;
+	this.validator = new Validator(customErrorMessages);
+	this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
 }
 
 module.exports = FormSpine;

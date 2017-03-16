@@ -1,20 +1,4 @@
 function Validator(customMessages) {
-	this.messages = {
-		regex: "The :field field is invalid.",
-		required: "The :field field is required.",
-		no_digits: "The :field field may not contain digits.",
-		only_digits: "The :field field may only contain digits.",
-		must_match: "The :field field match the :must_match field.",
-		min_length: "The :field field must be at least :min_length characters.",
-		max_length: "The :field field must not be longer than :max_length characters."
-	};
-
-	if (customMessages !== undefined) {
-		for (var message in customMessages) {
-			this.messages[message] = customMessages[message];
-		}
-	}
-
 	this.validate = function (fields) {
 		var errors = {};
 		for (var field in fields) {
@@ -66,6 +50,22 @@ function Validator(customMessages) {
 		}
 		return message;
 	};
+
+	this.messages = {
+		regex: "The :field field is invalid.",
+		required: "The :field field is required.",
+		no_digits: "The :field field may not contain digits.",
+		only_digits: "The :field field may only contain digits.",
+		must_match: "The :field field match the :must_match field.",
+		min_length: "The :field field must be at least :min_length characters.",
+		max_length: "The :field field must not be longer than :max_length characters."
+	};
+
+	if (customMessages !== undefined) {
+		for (var message in customMessages) {
+			this.messages[message] = customMessages[message];
+		}
+	}
 }
 
 module.exports = Validator;
