@@ -1,4 +1,4 @@
-export default class Validator {
+class Validator {
 	constructor(customMessages) {
 		this.messages = {
 			regex: "The :field field is invalid.",
@@ -68,3 +68,5 @@ export default class Validator {
 		return message;
 	};
 }
+
+module.exports = Validator;

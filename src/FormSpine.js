@@ -1,8 +1,8 @@
-import Validator from './Validator';
-import ErrorBag from './ErrorBag';
-import fetch from 'unfetch';
+const Validator = require('./Validator');
+const ErrorBag = require('./ErrorBag');
+const fetch = require('unfetch');
 
-export default class FormSpine {
+class FormSpine {
 	constructor(url, fields, customErrorMessages, clearOnSuccess) {
 		this.errors = new ErrorBag;
 		this.setupFields(fields);
@@ -107,3 +107,5 @@ export default class FormSpine {
 		return this.submit("put");
 	};
 }
+
+module.exports = FormSpine;

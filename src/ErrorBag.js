@@ -1,4 +1,4 @@
-export default class ErrorBag {
+class ErrorBag {
 	constructor() {
 		this.errors = {};
 	};
@@ -32,3 +32,5 @@ export default class ErrorBag {
 		this.errors = {};
 	};
 }
+
+module.exports = ErrorBag;
