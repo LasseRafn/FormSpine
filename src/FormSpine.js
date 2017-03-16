@@ -1,11 +1,12 @@
 var Validator = require('./Validator');
 var ErrorBag = require('./ErrorBag');
-var fetch = require('unfetch');
+require('unfetch/polyfill');
 
 function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 	this.setupFields = function (fields) {
 		this.fields = {};
 		this.originalValues = {};
+
 		for (var field in fields) {
 			fields[field]["value"] = fields[field].value ? fields[field].value : "";
 			fields[field]["name"] = field;
