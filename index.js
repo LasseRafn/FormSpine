@@ -1,4 +1,4 @@
-require('unfetch/polyfill');
+const fetch = require("unfetch");
 
 class ErrorBag {
 	constructor() {
@@ -212,7 +212,7 @@ class FormSpine {
 				if (response.ok) {
 					return response;
 				} else {
-					return Promise.reject(response);
+					return reject(response);
 				}
 			}).then(function (response) {
 				return response.json();
@@ -228,8 +228,7 @@ class FormSpine {
 						self.onFail(response.statusText);
 						reject(response.statusText);
 					});
-				}
-				else {
+				} else {
 					self.onFail(response.target.responseText);
 					reject(response.target.responseText);
 				}

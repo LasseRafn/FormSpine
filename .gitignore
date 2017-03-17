@@ -1,5 +1,5 @@
 yarn.lock
-test
+demo-app
 node_modules
 *.map
 dist

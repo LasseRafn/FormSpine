@@ -1,6 +1,7 @@
 var Validator = require('./Validator');
 var ErrorBag = require('./ErrorBag');
-require('unfetch/polyfill');
+
+import fetch from 'unfetch';
 
 class FormSpine {
 	constructor(url, fields, customErrorMessages, clearOnSuccess) {
@@ -96,8 +97,7 @@ class FormSpine {
 						self.onFail(response.statusText);
 						reject(response.statusText);
 					});
-				}
-				else {
+				} else {
 					self.onFail(response.target.responseText);
 					reject(response.target.responseText);
 				}
