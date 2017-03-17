@@ -1,1 +1,1 @@
-module.exports = require('./src/FormSpine');
+module.exports=require("./src/FormSpine");

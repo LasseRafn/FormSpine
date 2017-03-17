@@ -1,25 +1,60 @@
 {
-  "name": "form-spine",
-  "version": "0.6.0",
-  "description": "A lightweight form class with error handling, validation, and ajax requests (using fetch)",
-  "main": "src/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LasseRafn/form-spine.git"
-  },
-  "keywords": [
-    "form",
-    "validation",
-    "ajax",
-    "fetch"
-  ],
-  "author": "Lasse Rafn <lasserafn@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/LasseRafn/form-spine/issues"
-  },
-  "homepage": "https://github.com/LasseRafn/form-spine#readme",
-  "dependencies": {
-    "unfetch": "^2.1.2"
-  }
+	"name": "form-spine",
+	"version": "0.6.0",
+	"description": "A lightweight form class with error handling, validation, and ajax requests (using fetch)",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LasseRafn/form-spine.git"
+	},
+	"keywords": [
+		"form",
+		"validation",
+		"ajax",
+		"fetch"
+	],
+	"author": "Lasse Rafn <lasserafn@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/LasseRafn/form-spine/issues"
+	},
+	"homepage": "https://github.com/LasseRafn/form-spine#readme",
+	"dependencies": {
+		"unfetch": "^2.1.2"
+	},
+	"scripts": {
+		"lint": "eslint src test",
+		"build": "npm-run-all --silent clean -p minify:* -s size",
+		"size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size)\"",
+		"prepublish": "npm run -s build",
+		"clean": "rimraf dist && mkdirp dist",
+		"release": "npm run build -s && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
+		"minify:cjs": "uglifyjs $npm_package_main -cm toplevel -o $npm_package_main -p"
+	},
+	"eslintConfig": {
+		"parser": "babel-eslint",
+		"extends": "eslint:recommended",
+		"env": {
+			"browser": true,
+			"mocha": true,
+			"node": true,
+			"es6": true
+		},
+		"globals": {
+			"expect": true
+		}
+	},
+	"devDependencies": {
+		"babel-core": "^6.9.1",
+		"babel-eslint": "^7.1.1",
+		"babel-preset-es2015": "^6.9.0",
+		"babel-preset-stage-0": "^6.5.0",
+		"eslint": "^3.13.1",
+		"npm-run-all": "^2.1.1",
+		"gzip-size-cli": "^1.0.0",
+		"strip-json-comments-cli": "^1.0.1",
+		"mkdirp": "^0.5.1",
+		"rimraf": "^2.5.2",
+		"uglify-js": "^2.6.2"
+	}
 }
