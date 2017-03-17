@@ -1,3 +1,7 @@
+class Demo {
+
+}
+
 function ErrorBag() {
 	this.count = function () {
 		return Object.keys(this.errors).length;
