@@ -3,11 +3,11 @@ require('unfetch/polyfill');
 class ErrorBag {
 	constructor() {
 		this.errors = {};
-	};
+	}
 
 	count() {
 		return Object.keys(this.errors).length;
-	};
+	}
 
 	has(field) {
 		if (field === undefined) {
@@ -15,7 +15,7 @@ class ErrorBag {
 		}
 
 		return this.errors[field] !== undefined;
-	};
+	}
 
 	get(field) {
 		if (field === undefined) {
@@ -23,13 +23,13 @@ class ErrorBag {
 		}
 
 		return this.errors[field] !== undefined ? this.errors[field] : [];
-	};
+	}
 
 	first(field) {
 		var errors = this.get(field);
 
 		return errors.length > 0 ? errors[0] : false;
-	};
+	}
 
 	set(errors) {
 		for (var error in errors) {
@@ -39,7 +39,7 @@ class ErrorBag {
 		}
 
 		this.errors = errors;
-	};
+	}
 
 	clear(field) {
 		if (field) {
@@ -48,7 +48,7 @@ class ErrorBag {
 		}
 
 		this.errors = {};
-	};
+	}
 }
 
 class Validator {
@@ -61,14 +61,14 @@ class Validator {
 			must_match: "The :field field match the :must_match field.",
 			min_length: "The :field field must be at least :min_length characters.",
 			max_length: "The :field field must not be longer than :max_length characters."
-		};
+		}
 
 		if (customMessages !== undefined) {
 			for (var message in customMessages) {
 				this.messages[message] = customMessages[message];
 			}
 		}
-	};
+	}
 
 	validate(fields) {
 		var errors = {};
@@ -79,7 +79,7 @@ class Validator {
 			}
 		}
 		return errors;
-	};
+	}
 
 	validateField(field, fields) {
 		var errors = [];
@@ -111,7 +111,7 @@ class Validator {
 			errors.push(this.makeMessage(field.name, "regex", {regex: field.regex}));
 		}
 		return errors;
-	};
+	}
 
 	makeMessage(field, type, data) {
 		var message = this.messages[type];
@@ -120,7 +120,7 @@ class Validator {
 			message = message.replace(":" + item, data[item]);
 		}
 		return message;
-	};
+	}
 }
 
 class FormSpine {
@@ -130,7 +130,7 @@ class FormSpine {
 		this.url = url;
 		this.validator = new Validator(customErrorMessages);
 		this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
-	};
+	}
 
 	setupFields(fields) {
 		this.fields = {};
@@ -143,13 +143,13 @@ class FormSpine {
 			this.fields[field] = fields[field];
 			this.originalValues[field] = this.fields[field].value;
 		}
-	};
+	}
 
 	validate() {
 		this.errors.clear();
 
 		return this.validator.validate(this.fields);
-	};
+	}
 
 	data() {
 		var formData = {};
@@ -157,21 +157,21 @@ class FormSpine {
 			formData[field] = this.fields[field].value;
 		}
 		return formData;
-	};
+	}
 
 	clear() {
 		for (var field in this.fields) {
 			this.fields[field].value = "";
 		}
 		this.errors.clear();
-	};
+	}
 
 	reset() {
 		for (var field in this.fields) {
 			this.fields[field].value = this.originalValues[field];
 		}
 		this.errors.clear();
-	};
+	}
 
 	submit(method) {
 		var self = this;
@@ -209,7 +209,7 @@ class FormSpine {
 					response.json().then(function (data) {
 						self.onFail(data);
 						reject(data);
-					}).catch(function (data) {
+					}).catch(function () {
 						self.onFail(response.statusText);
 						reject(response.statusText);
 					});
@@ -220,13 +220,13 @@ class FormSpine {
 				}
 			});
 		});
-	};
+	}
 
-	onSuccess(data) {
+	onSuccess() {
 		if (this.clearOnSuccess) {
 			this.reset();
 		}
-	};
+	}
 
 	onFail(errors) {
 		if (typeof errors === "string") {
@@ -238,19 +238,19 @@ class FormSpine {
 		if (errors !== undefined) {
 			this.errors.set(errors);
 		}
-	};
+	}
 
 	post() {
 		return this.submit("post");
-	};
+	}
 
 	delete() {
 		return this.submit("delete");
-	};
+	}
 
 	put() {
 		return this.submit("put");
-	};
+	}
 }
 
 module.exports = {ErrorBag, Validator, FormSpine};
