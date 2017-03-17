@@ -1,2 +1,257 @@
-module.exports=require("../src/FormSpine");
-//# sourceMappingURL=index.js.map
+class Demo {
+
+}
+
+require('unfetch/polyfill');
+
+function ErrorBag() {
+	this.count = function () {
+		return Object.keys(this.errors).length;
+	};
+
+	this.has = function (field) {
+		if(field === undefined)
+		{
+			return false;
+		}
+
+		return this.errors[field] !== undefined;
+	};
+
+	this.get = function (field) {
+		if(field === undefined)
+		{
+			return [];
+		}
+
+		return this.errors[field] !== undefined ? this.errors[field] : [];
+	};
+
+	this.first = function (field) {
+		var errors = this.get(field);
+
+		return errors.length > 0 ? errors[0] : false;
+	};
+
+	this.set = function (errors) {
+		for(var error in errors) {
+			if(typeof errors[error] === "string") {
+				errors[error] = [errors[error]];
+			}
+		}
+
+		this.errors = errors;
+	};
+
+	this.clear = function (field) {
+		if (field) {
+			delete this.errors[field];
+			return;
+		}
+
+		this.errors = {};
+	};
+
+	this.errors = {};
+}
+
+
+function Validator(customMessages) {
+	this.validate = function (fields) {
+		var errors = {};
+		for (var field in fields) {
+			var validateResult = this.validateField(fields[field], fields);
+			if (validateResult.length > 0) {
+				errors[field] = validateResult;
+			}
+		}
+		return errors;
+	};
+
+	this.validateField = function (field, fields) {
+		var errors = [];
+		if (field.min_length && field.value.length < field.min_length) {
+			errors.push(this.makeMessage(field.name, "min_length", {
+				min_length: field.min_length
+			}));
+		}
+		if (field.max_length && field.value.length > field.max_length) {
+			errors.push(this.makeMessage(field.name, "max_length", {
+				max_length: field.max_length
+			}));
+		}
+		if (field.required && field.value.length === 0) {
+			errors.push(this.makeMessage(field.name, "required"));
+		}
+		if (field.must_match && field.value !== fields[field.must_match].value) {
+			errors.push(this.makeMessage(field.name, "must_match", {
+				must_match: field.must_match
+			}));
+		}
+		if (field.only_digits && /\D/.test(field.value)) {
+			errors.push(this.makeMessage(field.name, "only_digits"));
+		}
+		if (field.no_digits && /\d/.test(field.value)) {
+			errors.push(this.makeMessage(field.name, "no_digits"));
+		}
+		if (field.regex && !field.regex.test(field.value)) {
+			errors.push(this.makeMessage(field.name, "regex", {regex: field.regex}));
+		}
+		return errors;
+	};
+
+	this.makeMessage = function (field, type, data) {
+		var message = this.messages[type];
+		message = message.replace(":field", field);
+		for (var item in data) {
+			message = message.replace(":" + item, data[item]);
+		}
+		return message;
+	};
+
+	this.messages = {
+		regex: "The :field field is invalid.",
+		required: "The :field field is required.",
+		no_digits: "The :field field may not contain digits.",
+		only_digits: "The :field field may only contain digits.",
+		must_match: "The :field field match the :must_match field.",
+		min_length: "The :field field must be at least :min_length characters.",
+		max_length: "The :field field must not be longer than :max_length characters."
+	};
+
+	if (customMessages !== undefined) {
+		for (var message in customMessages) {
+			this.messages[message] = customMessages[message];
+		}
+	}
+}
+
+function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
+	this.setupFields = function (fields) {
+		this.fields = {};
+		this.originalValues = {};
+
+		for (var field in fields) {
+			fields[field]["value"] = fields[field].value ? fields[field].value : "";
+			fields[field]["name"] = field;
+
+			this.fields[field] = fields[field];
+			this.originalValues[field] = this.fields[field].value;
+		}
+	};
+
+	this.validate = function () {
+		this.errors.clear();
+
+		return this.validator.validate(this.fields);
+	};
+
+	this.data = function () {
+		var formData = {};
+		for (var field in this.fields) {
+			formData[field] = this.fields[field].value;
+		}
+		return formData;
+	};
+
+	this.clear = function () {
+		for (var field in this.fields) {
+			this.fields[field].value = "";
+		}
+		this.errors.clear();
+	};
+
+	this.reset = function () {
+		for (var field in this.fields) {
+			this.fields[field].value = this.originalValues[field];
+		}
+		this.errors.clear();
+	};
+
+	this.submit = function (method) {
+		var self = this;
+
+		return new Promise(function (resolve, reject) {
+			var validationResponse = self.validate();
+
+			if (Object.keys(validationResponse).length > 0) {
+				self.errors.set(validationResponse);
+				reject(validationResponse);
+
+				return false;
+			}
+
+			fetch(self.url, {
+				method: method.toUpperCase(),
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(self.data())
+			}).then(function (response) {
+				if (response.ok) {
+					return response;
+				} else {
+					return Promise.reject(response);
+				}
+			}).then(function (response) {
+				return response.json();
+			}).then(function (data) {
+				self.onSuccess(data);
+				resolve(data);
+			}).catch(function (response) {
+				if (response.ok !== undefined) {
+					response.json().then(function (data) {
+						self.onFail(data);
+						reject(data);
+					}).catch(function (data) {
+						self.onFail(response.statusText);
+						reject(response.statusText);
+					});
+				}
+				else {
+					self.onFail(response.target.responseText);
+					reject(response.target.responseText);
+				}
+			});
+		});
+	};
+
+	this.onSuccess = function (data) {
+		if (this.clearOnSuccess) {
+			this.reset();
+		}
+	};
+
+	this.onFail = function (errors) {
+		if (typeof errors === "string") {
+			errors = {
+				general: [errors]
+			};
+		}
+
+		if (errors !== undefined) {
+			this.errors.set(errors);
+		}
+	};
+
+	this.post = function () {
+		return this.submit("post");
+	};
+
+	this.delete = function () {
+		return this.submit("delete");
+	};
+
+	this.put = function () {
+		return this.submit("put");
+	};
+
+	this.errors = new ErrorBag;
+	this.setupFields(fields);
+	this.url = url;
+	this.validator = new Validator(customErrorMessages);
+	this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
+}
+
+module.exports = FormSpine;

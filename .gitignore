@@ -2,3 +2,4 @@ yarn.lock
 test
 node_modules
 *.map
+dist
