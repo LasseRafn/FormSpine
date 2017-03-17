@@ -11,63 +11,76 @@ class Validator {
 		};
 
 		if (customMessages !== undefined) {
-			for (var message in customMessages) {
+			for (let message in customMessages) {
 				this.messages[message] = customMessages[message];
 			}
 		}
-	};
+	}
 
 	validate(fields) {
-		var errors = {};
-		for (var field in fields) {
-			var validateResult = this.validateField(fields[field], fields);
+		let errors = {};
+
+		for (let field in fields) {
+			let validateResult = this.validateField(fields[field], fields);
+
 			if (validateResult.length > 0) {
 				errors[field] = validateResult;
 			}
 		}
 		return errors;
-	};
+	}
 
 	validateField(field, fields) {
-		var errors = [];
+		let errors = [];
+
 		if (field.min_length && field.value.length < field.min_length) {
 			errors.push(this.makeMessage(field.name, "min_length", {
 				min_length: field.min_length
 			}));
 		}
+
 		if (field.max_length && field.value.length > field.max_length) {
 			errors.push(this.makeMessage(field.name, "max_length", {
 				max_length: field.max_length
 			}));
 		}
+
 		if (field.required && field.value.length === 0) {
 			errors.push(this.makeMessage(field.name, "required"));
 		}
+
 		if (field.must_match && field.value !== fields[field.must_match].value) {
 			errors.push(this.makeMessage(field.name, "must_match", {
 				must_match: field.must_match
 			}));
 		}
+
 		if (field.only_digits && /\D/.test(field.value)) {
 			errors.push(this.makeMessage(field.name, "only_digits"));
 		}
+
 		if (field.no_digits && /\d/.test(field.value)) {
 			errors.push(this.makeMessage(field.name, "no_digits"));
 		}
+
 		if (field.regex && !field.regex.test(field.value)) {
 			errors.push(this.makeMessage(field.name, "regex", {regex: field.regex}));
 		}
+
 		return errors;
-	};
+	}
 
 	makeMessage(field, type, data) {
-		var message = this.messages[type];
+		let message = this.messages[type];
+
 		message = message.replace(":field", field);
-		for (var item in data) {
+
+		for (let item in data) {
 			message = message.replace(":" + item, data[item]);
 		}
+
 		return message;
-	};
+	}
 }
 
 module.exports = Validator;

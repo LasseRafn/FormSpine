@@ -9,54 +9,58 @@ class FormSpine {
 		this.url = url;
 		this.validator = new Validator(customErrorMessages);
 		this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
-	};
+	}
 
 	setupFields(fields) {
 		this.fields = {};
 		this.originalValues = {};
 
-		for (var field in fields) {
+		for (let field in fields) {
 			fields[field]["value"] = fields[field].value ? fields[field].value : "";
-			fields[field]["name"] = field;
+			fields[field]["name"] = fields[field].name ? fields[field].name : field;
 
 			this.fields[field] = fields[field];
 			this.originalValues[field] = this.fields[field].value;
 		}
-	};
+	}
 
 	validate() {
 		this.errors.clear();
 
 		return this.validator.validate(this.fields);
-	};
+	}
 
 	data() {
-		var formData = {};
-		for (var field in this.fields) {
+		let formData = {};
+
+		for (let field in this.fields) {
 			formData[field] = this.fields[field].value;
 		}
+
 		return formData;
-	};
+	}
 
 	clear() {
-		for (var field in this.fields) {
+		for (let field in this.fields) {
 			this.fields[field].value = "";
 		}
+
 		this.errors.clear();
-	};
+	}
 
 	reset() {
-		for (var field in this.fields) {
+		for (let field in this.fields) {
 			this.fields[field].value = this.originalValues[field];
 		}
+
 		this.errors.clear();
-	};
+	}
 
 	submit(method) {
 		var self = this;
 
 		return new Promise(function (resolve, reject) {
-			var validationResponse = self.validate();
+			const validationResponse = self.validate();
 
 			if (Object.keys(validationResponse).length > 0) {
 				self.errors.set(validationResponse);
@@ -88,7 +92,7 @@ class FormSpine {
 					response.json().then(function (data) {
 						self.onFail(data);
 						reject(data);
-					}).catch(function (data) {
+					}).catch(function () {
 						self.onFail(response.statusText);
 						reject(response.statusText);
 					});
@@ -99,13 +103,13 @@ class FormSpine {
 				}
 			});
 		});
-	};
+	}
 
-	onSuccess(data) {
+	onSuccess() {
 		if (this.clearOnSuccess) {
 			this.reset();
 		}
-	};
+	}
 
 	onFail(errors) {
 		if (typeof errors === "string") {
@@ -117,19 +121,19 @@ class FormSpine {
 		if (errors !== undefined) {
 			this.errors.set(errors);
 		}
-	};
+	}
 
 	post() {
 		return this.submit("post");
-	};
+	}
 
 	delete() {
 		return this.submit("delete");
-	};
+	}
 
 	put() {
 		return this.submit("put");
-	};
+	}
 }
 
 module.exports = FormSpine;
