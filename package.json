@@ -1,6 +1,6 @@
 {
 	"name": "form-spine",
-	"version": "0.7.5",
+	"version": "0.7.6",
 	"description": "A lightweight form class with error handling, validation, and ajax requests (using fetch)",
 	"main": "dist/formspine.js",
 	"module": "dist/formspine.es.js",
@@ -13,6 +13,7 @@
 	"keywords": [
 		"form",
 		"validation",
+		"error handling",
 		"ajax",
 		"fetch"
 	],
