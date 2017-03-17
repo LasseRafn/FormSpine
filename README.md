@@ -6,16 +6,28 @@
 <a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/v/form-spine.svg" /></a>
 <a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/dt/form-spine.svg" /></a>
 </p>
-    
+
+# Form Spine
+
 Form Spine is a lightweight (`~4kb`, ~1.4kb gzipped) JavaScript form library with validation, error handling and ajax requests (based on [unfetch](https://github.com/developit/unfetch))
 
 It's promise-based, which makes running scripts on error/success very easy.
 
-**Want to see it in action? [Click here](#)**
+------------------------------------------------
+
+## Table of Contents
+
+* [Getting Started](#getting-started)
+* [Usage](#usage)
+* [API](#api)
+* [Examples](#examples)
+* [Inspiration](#inspiration)
+
+------------------------------------------------
 
 ## Getting Started
 
-### Adding To Your Project
+### Install Instructions
 
 Adding Form Spine to your project requires NPM. Optinally you could use [Yarn](https://yarnpkg.com).
 
@@ -31,18 +43,26 @@ yarn add form-spine
 
 ### Using In Your Project
 
-To use Form Spine in your project, you must require it, like this:
-
+Using Rollup or WebPack (or another module bundler), you can do like this: 
 ```js
-const FormSpine = require("form-spine");
+// ES6
+import {FormSpine} from "form-spine";
+
+// CommonJS
+var {FormSpine} = require("form-spine");
 ```
+
+It's also available on unpkg:
+```html
+<script src="//unpkg.com/form-spine/dist/formspine.umd.js"></script>
+```
+
+------------------------------------------------
 
 ## Usage
 
 ### Vue.js example
 ```js
-const FormSpine = require("form-spine");
-
 let formFields = {
     todo_text: {
         required: true,
@@ -53,7 +73,7 @@ let formFields = {
 new Vue({
     el: "#app",
     data: {
-        form: new FormSpine('/create-todo', formFields);
+        form: new FormSpine('/create-todo', formFields)
     },
     
     methods: {
@@ -64,7 +84,9 @@ new Vue({
 });
 ```
 
-## Documentation
+------------------------------------------------
+
+## API
 
 ### The `FormSpine` Class
 
@@ -150,12 +172,20 @@ let customMessages = {
 let formObject = new FormSpine('/submit', {}, customMessages);
 ```
 
+------------------------------------------------
+
+## Examples
+
+.. Coming soon ...
+
+
+------------------------------------------------
+
 ## Inspiration
+I found myself creating similar classes for every new project I started, so I felt it was time to combine everything into a single class that I could use for almost all my projects. Of cause, in the nature of sharing, I decided to open source it.
+
 Form Spine is inspired heavily on [laracasts/vue-forms](https://github.com/laracasts/Vue-Forms)
 
 If you're into learning, you should really go signup at [Laracasts](https://laracasts.com)
 
-(I'm in no way affiliated or sponsored by Laracasts!)
-
-## Motivation
-I found myself creating similar classes for every new project I started, so I felt it was time to combine everything into a single class that I could use for almost all my projects. Of cause, in the nature of sharing, I decided to open source it.
+Build scripts (and more) are heavily based on [developit/unfetch](https://github.com/developit/unfetch). 
