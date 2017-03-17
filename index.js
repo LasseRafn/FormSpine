@@ -98,7 +98,7 @@ class Validator {
 
 		if (field.must_match && field.value !== fields[field.must_match].value) {
 			errors.push(this.makeMessage(field.name, "must_match", {
-				must_match: field.must_match
+				must_match: fields[field.must_match].name
 			}));
 		}
 
