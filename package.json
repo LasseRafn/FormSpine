@@ -24,7 +24,7 @@
 	},
 	"scripts": {
 		"lint": "eslint src test",
-		"build": "npm-run-all --silent clean -p minify:* -s size",
+		"build": "npm-run-all --silent clean -p rollup:* -p minify:* -s size",
 		"size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size)\"",
 		"prepublish": "npm run -s build",
 		"clean": "rimraf dist && mkdirp dist",
@@ -59,6 +59,7 @@
 		"rollup-plugin-buble": "^0.15.0",
 		"rollup-plugin-post-replace": "^1.0.0",
 		"rimraf": "^2.5.2",
-		"uglify-js": "^2.6.2"
+		"uglify-js": "^2.6.2",
+		"cross-env": "^3.1.4"
 	}
 }
