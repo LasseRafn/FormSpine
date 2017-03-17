@@ -9,7 +9,7 @@
 
 # Form Spine
 
-Form Spine is a lightweight (`~4kb`, ~1.4kb gzipped) JavaScript form library with validation, error handling and ajax requests (based on [unfetch](https://github.com/developit/unfetch))
+Form Spine is a lightweight (`~4kb`, ~1.4kb gzipped) JavaScript form library with validation, error handling and fetch (Polyfilled with [developit/unfetch](https://github.com/developit/unfetch))
 
 It's promise-based, which makes running scripts on error/success very easy.
 
@@ -177,7 +177,6 @@ let formObject = new FormSpine('/submit', {}, customMessages);
 ## Examples
 
 .. Coming soon ...
-
 
 ------------------------------------------------
 
