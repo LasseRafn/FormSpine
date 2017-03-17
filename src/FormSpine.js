@@ -2,8 +2,16 @@ var Validator = require('./Validator');
 var ErrorBag = require('./ErrorBag');
 require('unfetch/polyfill');
 
-function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
-	this.setupFields = function (fields) {
+class FormSpine {
+	constructor(url, fields, customErrorMessages, clearOnSuccess) {
+		this.errors = new ErrorBag;
+		this.setupFields(fields);
+		this.url = url;
+		this.validator = new Validator(customErrorMessages);
+		this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
+	};
+
+	setupFields(fields) {
 		this.fields = {};
 		this.originalValues = {};
 
@@ -16,13 +24,13 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		}
 	};
 
-	this.validate = function () {
+	validate() {
 		this.errors.clear();
 
 		return this.validator.validate(this.fields);
 	};
 
-	this.data = function () {
+	data() {
 		var formData = {};
 		for (var field in this.fields) {
 			formData[field] = this.fields[field].value;
@@ -30,21 +38,21 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		return formData;
 	};
 
-	this.clear = function () {
+	clear() {
 		for (var field in this.fields) {
 			this.fields[field].value = "";
 		}
 		this.errors.clear();
 	};
 
-	this.reset = function () {
+	reset() {
 		for (var field in this.fields) {
 			this.fields[field].value = this.originalValues[field];
 		}
 		this.errors.clear();
 	};
 
-	this.submit = function (method) {
+	submit(method) {
 		var self = this;
 
 		return new Promise(function (resolve, reject) {
@@ -93,13 +101,13 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		});
 	};
 
-	this.onSuccess = function (data) {
+	onSuccess(data) {
 		if (this.clearOnSuccess) {
 			this.reset();
 		}
 	};
 
-	this.onFail = function (errors) {
+	onFail(errors) {
 		if (typeof errors === "string") {
 			errors = {
 				general: [errors]
@@ -111,23 +119,17 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		}
 	};
 
-	this.post = function () {
+	post() {
 		return this.submit("post");
 	};
 
-	this.delete = function () {
+	delete() {
 		return this.submit("delete");
 	};
 
-	this.put = function () {
+	put() {
 		return this.submit("put");
 	};
-
-	this.errors = new ErrorBag;
-	this.setupFields(fields);
-	this.url = url;
-	this.validator = new Validator(customErrorMessages);
-	this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
 }
 
 module.exports = FormSpine;

@@ -1,41 +1,39 @@
-class Demo {
-
-}
-
 require('unfetch/polyfill');
 
-function ErrorBag() {
-	this.count = function () {
+class ErrorBag {
+	constructor() {
+		this.errors = {};
+	};
+
+	count() {
 		return Object.keys(this.errors).length;
 	};
 
-	this.has = function (field) {
-		if(field === undefined)
-		{
+	has(field) {
+		if (field === undefined) {
 			return false;
 		}
 
 		return this.errors[field] !== undefined;
 	};
 
-	this.get = function (field) {
-		if(field === undefined)
-		{
+	get(field) {
+		if (field === undefined) {
 			return [];
 		}
 
 		return this.errors[field] !== undefined ? this.errors[field] : [];
 	};
 
-	this.first = function (field) {
+	first(field) {
 		var errors = this.get(field);
 
 		return errors.length > 0 ? errors[0] : false;
 	};
 
-	this.set = function (errors) {
-		for(var error in errors) {
-			if(typeof errors[error] === "string") {
+	set(errors) {
+		for (var error in errors) {
+			if (typeof errors[error] === "string") {
 				errors[error] = [errors[error]];
 			}
 		}
@@ -43,7 +41,7 @@ function ErrorBag() {
 		this.errors = errors;
 	};
 
-	this.clear = function (field) {
+	clear(field) {
 		if (field) {
 			delete this.errors[field];
 			return;
@@ -51,13 +49,28 @@ function ErrorBag() {
 
 		this.errors = {};
 	};
-
-	this.errors = {};
 }
 
+class Validator {
+	constructor(customMessages) {
+		this.messages = {
+			regex: "The :field field is invalid.",
+			required: "The :field field is required.",
+			no_digits: "The :field field may not contain digits.",
+			only_digits: "The :field field may only contain digits.",
+			must_match: "The :field field match the :must_match field.",
+			min_length: "The :field field must be at least :min_length characters.",
+			max_length: "The :field field must not be longer than :max_length characters."
+		};
 
-function Validator(customMessages) {
-	this.validate = function (fields) {
+		if (customMessages !== undefined) {
+			for (var message in customMessages) {
+				this.messages[message] = customMessages[message];
+			}
+		}
+	};
+
+	validate(fields) {
 		var errors = {};
 		for (var field in fields) {
 			var validateResult = this.validateField(fields[field], fields);
@@ -68,7 +81,7 @@ function Validator(customMessages) {
 		return errors;
 	};
 
-	this.validateField = function (field, fields) {
+	validateField(field, fields) {
 		var errors = [];
 		if (field.min_length && field.value.length < field.min_length) {
 			errors.push(this.makeMessage(field.name, "min_length", {
@@ -100,7 +113,7 @@ function Validator(customMessages) {
 		return errors;
 	};
 
-	this.makeMessage = function (field, type, data) {
+	makeMessage(field, type, data) {
 		var message = this.messages[type];
 		message = message.replace(":field", field);
 		for (var item in data) {
@@ -108,26 +121,18 @@ function Validator(customMessages) {
 		}
 		return message;
 	};
-
-	this.messages = {
-		regex: "The :field field is invalid.",
-		required: "The :field field is required.",
-		no_digits: "The :field field may not contain digits.",
-		only_digits: "The :field field may only contain digits.",
-		must_match: "The :field field match the :must_match field.",
-		min_length: "The :field field must be at least :min_length characters.",
-		max_length: "The :field field must not be longer than :max_length characters."
-	};
-
-	if (customMessages !== undefined) {
-		for (var message in customMessages) {
-			this.messages[message] = customMessages[message];
-		}
-	}
 }
 
-function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
-	this.setupFields = function (fields) {
+class FormSpine {
+	constructor(url, fields, customErrorMessages, clearOnSuccess) {
+		this.errors = new ErrorBag;
+		this.setupFields(fields);
+		this.url = url;
+		this.validator = new Validator(customErrorMessages);
+		this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
+	};
+
+	setupFields(fields) {
 		this.fields = {};
 		this.originalValues = {};
 
@@ -140,13 +145,13 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		}
 	};
 
-	this.validate = function () {
+	validate() {
 		this.errors.clear();
 
 		return this.validator.validate(this.fields);
 	};
 
-	this.data = function () {
+	data() {
 		var formData = {};
 		for (var field in this.fields) {
 			formData[field] = this.fields[field].value;
@@ -154,21 +159,21 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		return formData;
 	};
 
-	this.clear = function () {
+	clear() {
 		for (var field in this.fields) {
 			this.fields[field].value = "";
 		}
 		this.errors.clear();
 	};
 
-	this.reset = function () {
+	reset() {
 		for (var field in this.fields) {
 			this.fields[field].value = this.originalValues[field];
 		}
 		this.errors.clear();
 	};
 
-	this.submit = function (method) {
+	submit(method) {
 		var self = this;
 
 		return new Promise(function (resolve, reject) {
@@ -217,13 +222,13 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		});
 	};
 
-	this.onSuccess = function (data) {
+	onSuccess(data) {
 		if (this.clearOnSuccess) {
 			this.reset();
 		}
 	};
 
-	this.onFail = function (errors) {
+	onFail(errors) {
 		if (typeof errors === "string") {
 			errors = {
 				general: [errors]
@@ -235,23 +240,17 @@ function FormSpine(url, fields, customErrorMessages, clearOnSuccess) {
 		}
 	};
 
-	this.post = function () {
+	post() {
 		return this.submit("post");
 	};
 
-	this.delete = function () {
+	delete() {
 		return this.submit("delete");
 	};
 
-	this.put = function () {
+	put() {
 		return this.submit("put");
 	};
-
-	this.errors = new ErrorBag;
-	this.setupFields(fields);
-	this.url = url;
-	this.validator = new Validator(customErrorMessages);
-	this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
 }
 
-module.exports = FormSpine;
+module.exports = {ErrorBag, Validator, FormSpine};

@@ -1,5 +1,23 @@
-function Validator(customMessages) {
-	this.validate = function (fields) {
+class Validator {
+	constructor(customMessages) {
+		this.messages = {
+			regex: "The :field field is invalid.",
+			required: "The :field field is required.",
+			no_digits: "The :field field may not contain digits.",
+			only_digits: "The :field field may only contain digits.",
+			must_match: "The :field field match the :must_match field.",
+			min_length: "The :field field must be at least :min_length characters.",
+			max_length: "The :field field must not be longer than :max_length characters."
+		};
+
+		if (customMessages !== undefined) {
+			for (var message in customMessages) {
+				this.messages[message] = customMessages[message];
+			}
+		}
+	};
+
+	validate(fields) {
 		var errors = {};
 		for (var field in fields) {
 			var validateResult = this.validateField(fields[field], fields);
@@ -10,7 +28,7 @@ function Validator(customMessages) {
 		return errors;
 	};
 
-	this.validateField = function (field, fields) {
+	validateField(field, fields) {
 		var errors = [];
 		if (field.min_length && field.value.length < field.min_length) {
 			errors.push(this.makeMessage(field.name, "min_length", {
@@ -42,7 +60,7 @@ function Validator(customMessages) {
 		return errors;
 	};
 
-	this.makeMessage = function (field, type, data) {
+	makeMessage(field, type, data) {
 		var message = this.messages[type];
 		message = message.replace(":field", field);
 		for (var item in data) {
@@ -50,22 +68,6 @@ function Validator(customMessages) {
 		}
 		return message;
 	};
-
-	this.messages = {
-		regex: "The :field field is invalid.",
-		required: "The :field field is required.",
-		no_digits: "The :field field may not contain digits.",
-		only_digits: "The :field field may only contain digits.",
-		must_match: "The :field field match the :must_match field.",
-		min_length: "The :field field must be at least :min_length characters.",
-		max_length: "The :field field must not be longer than :max_length characters."
-	};
-
-	if (customMessages !== undefined) {
-		for (var message in customMessages) {
-			this.messages[message] = customMessages[message];
-		}
-	}
 }
 
 module.exports = Validator;

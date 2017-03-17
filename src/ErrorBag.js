@@ -1,39 +1,37 @@
-class Demo {
+class ErrorBag {
+	constructor() {
+		this.errors = {};
+	};
 
-}
-
-function ErrorBag() {
-	this.count = function () {
+	count() {
 		return Object.keys(this.errors).length;
 	};
 
-	this.has = function (field) {
-		if(field === undefined)
-		{
+	has(field) {
+		if (field === undefined) {
 			return false;
 		}
 
 		return this.errors[field] !== undefined;
 	};
 
-	this.get = function (field) {
-		if(field === undefined)
-		{
+	get(field) {
+		if (field === undefined) {
 			return [];
 		}
 
 		return this.errors[field] !== undefined ? this.errors[field] : [];
 	};
 
-	this.first = function (field) {
+	first(field) {
 		var errors = this.get(field);
 
 		return errors.length > 0 ? errors[0] : false;
 	};
 
-	this.set = function (errors) {
-		for(var error in errors) {
-			if(typeof errors[error] === "string") {
+	set(errors) {
+		for (var error in errors) {
+			if (typeof errors[error] === "string") {
 				errors[error] = [errors[error]];
 			}
 		}
@@ -41,7 +39,7 @@ function ErrorBag() {
 		this.errors = errors;
 	};
 
-	this.clear = function (field) {
+	clear(field) {
 		if (field) {
 			delete this.errors[field];
 			return;
@@ -49,8 +47,6 @@ function ErrorBag() {
 
 		this.errors = {};
 	};
-
-	this.errors = {};
 }
 
 module.exports = ErrorBag;
