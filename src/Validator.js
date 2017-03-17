@@ -7,7 +7,8 @@ class Validator {
 			only_digits: "The :field field may only contain digits.",
 			must_match: "The :field field match the :must_match field.",
 			min_length: "The :field field must be at least :min_length characters.",
-			max_length: "The :field field must not be longer than :max_length characters."
+			max_length: "The :field field must not be longer than :max_length characters.",
+			checked: "The :field must be checked."
 		};
 
 		if (customMessages !== undefined) {
@@ -65,6 +66,10 @@ class Validator {
 
 		if (field.regex && !field.regex.test(field.value)) {
 			errors.push(this.makeMessage(field.name, "regex", {regex: field.regex}));
+		}
+
+		if (field.checked && !field.value) {
+			errors.push(this.makeMessage(field.name, "checked"));
 		}
 
 		return errors;

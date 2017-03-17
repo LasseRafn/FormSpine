@@ -151,6 +151,7 @@ let formObject = new FormSpine('/submit', fields);
 | `max_length` | integer | Validation rule: sets a maximum length for the field |  |
 | `no_digits` | boolean | Validation rule: may not contain digits | `false` |
 | `only_digits` | boolean | Validation rule: may only contain digits | `false` |
+| `checked` | boolean | Validation rule: has to be checked / be `true` (for checkbox/radio inputs) | `false` |
 | `regex` | string/regex | Validation rule: must match regex |  |
 
 ##### `customMessages` [OPTIONAL]
