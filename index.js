@@ -223,9 +223,6 @@ class FormSpine {
 						response.text().then(function (data) {
 							self.onSuccess(data);
 							resolve(data);
-						}).catch(function () {
-							self.onSuccess(response.statusText);
-							resolve(response.statusText);
 						});
 					});
 				} else {
@@ -236,9 +233,6 @@ class FormSpine {
 						response.text().then(function (data) {
 							self.onFail(data);
 							reject(data);
-						}).catch(function () {
-							self.onFail(response.statusText);
-							reject(response.statusText);
 						});
 					});
 				}
