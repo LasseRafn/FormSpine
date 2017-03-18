@@ -1,7 +1,6 @@
-import test from 'ava';
+import test from "ava";
 import sinon from "sinon";
-
-import {FormSpine} from "../dist/formspine.es";
+import FormSpine from "../dist/formspine.es";
 
 let xhr = {
 	setRequestHeader: sinon.spy(),
