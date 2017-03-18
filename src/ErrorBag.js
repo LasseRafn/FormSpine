@@ -4,7 +4,13 @@ class ErrorBag {
 	}
 
 	count() {
-		return Object.keys(this.errors).length;
+		let num_errors = 0;
+
+		for (let error in this.errors) {
+			num_errors += this.errors[error].length;
+		}
+
+		return num_errors;
 	}
 
 	has(field) {

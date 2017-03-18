@@ -79,27 +79,31 @@ class FormSpine {
 				body: JSON.stringify(self.data())
 			}).then(function (response) {
 				if (response.ok) {
-					return response;
+					response.json().then(function (data) {
+						self.onSuccess(data);
+						resolve(data);
+					}).catch(function () {
+						response.text().then(function (data) {
+							self.onSuccess(data);
+							resolve(data);
+						}).catch(function () {
+							self.onSuccess(response.statusText);
+							resolve(response.statusText);
+						});
+					});
 				} else {
-					return Promise.reject(response);
-				}
-			}).then(function (response) {
-				return response.json();
-			}).then(function (data) {
-				self.onSuccess(data);
-				resolve(data);
-			}).catch(function (response) {
-				if (response.ok !== undefined) {
 					response.json().then(function (data) {
 						self.onFail(data);
 						reject(data);
 					}).catch(function () {
-						self.onFail(response.statusText);
-						reject(response.statusText);
+						response.text().then(function (data) {
+							self.onFail(data);
+							reject(data);
+						}).catch(function () {
+							self.onFail(response.statusText);
+							reject(response.statusText);
+						});
 					});
-				} else {
-					self.onFail(response.target.responseText);
-					reject(response.target.responseText);
 				}
 			});
 		});
