@@ -352,3 +352,13 @@ test('form can have custom error messages', function (t) {
 		t.true(form.errors.first('email') === 'Hello. Please input this field, good sir.');
 	});
 });
+
+test('Errorbag can set errors', function (t) {
+	const form = new FormSpine('/', {
+		name: {}
+	});
+
+	form.errors.set({ name: "Something went wrong!"});
+
+	t.true(form.errors.first('name') === 'Something went wrong!');
+});
