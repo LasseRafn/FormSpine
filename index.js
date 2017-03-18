@@ -271,4 +271,4 @@ class FormSpine {
 	}
 }
 
-module.exports = {ErrorBag, Validator, FormSpine};
+module.exports = FormSpine;

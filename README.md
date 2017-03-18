@@ -48,10 +48,10 @@ yarn add form-spine
 Using Rollup or WebPack (or another module bundler), you can do like this: 
 ```js
 // ES6
-import {FormSpine} from "form-spine";
+import FormSpine from "form-spine";
 
 // CommonJS
-var {FormSpine} = require("form-spine");
+var FormSpine = require("form-spine");
 ```
 
 It's also available on unpkg:
@@ -160,9 +160,10 @@ let formObject = new FormSpine('/submit', fields);
 
 This parameter is useful if you want to translate or change the validation messages. You have to pass in an object of strings with error messages.
 
-**Example:**
+**Example (Using defaults):**
 ```js
 let customMessages = {
+    checked:      "The :field must be checked.",
     regex:        "The :field field is invalid.",
     required:     "The :field field is required.",
     no_digits:    "The :field field may not contain digits.",
