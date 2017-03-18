@@ -3,10 +3,10 @@
 </p>
 
 <p align="center" style="text-align: center;">
-<a href="https://codecov.io/gh/LasseRafn/form-spine"><img src="https://img.shields.io/codecov/c/github/LasseRafn/form-spine.svg" /></a>
-<a href="https://travis-ci.org/LasseRafn/form-spine"><img src="https://img.shields.io/travis/LasseRafn/form-spine.svg" /></a>
-<a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/v/form-spine.svg" /></a>
-<a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/dt/form-spine.svg" /></a>
+<a href="https://codecov.io/gh/LasseRafn/form-spine"><img src="https://img.shields.io/codecov/c/github/LasseRafn/form-spine.svg?style=flat-square" /></a>
+<a href="https://travis-ci.org/LasseRafn/form-spine"><img src="https://img.shields.io/travis/LasseRafn/form-spine.svg?style=flat-square" /></a>
+<a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/v/form-spine.svg?style=flat-square" /></a>
+<a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/dt/form-spine.svg?style=flat-square" /></a>
 </p>
 
 # Form Spine
