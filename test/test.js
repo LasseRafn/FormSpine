@@ -281,3 +281,74 @@ test('form can clear', function (t) {
 	t.true(form.fields.name.value === "");
 	t.true(form.fields.email.value === "");
 });
+
+test('ErrorBag has errors', function (t) {
+	const form = new FormSpine('/', {
+		name: {
+			value: "Lasse Rafn"
+		},
+		email: { required: true }
+	});
+
+	return form.post().then(function (data) {
+		t.fail();
+	}).catch(function (errors) {
+		t.true(form.errors.has('email'));
+		t.true(!form.errors.has('name'));
+	});
+});
+
+test('ErrorBag can get first error', function (t) {
+	const form = new FormSpine('/', {
+		name: {
+			value: "Lasse Rafn"
+		},
+		email: { required: true, min_length: 100 }
+	});
+
+	return form.post().then(function (data) {
+		t.fail();
+	}).catch(function (errors) {
+		t.true(form.errors.first('email') === 'The email field must be at least 100 characters.');
+	});
+});
+
+test('ErrorBag can clear errors and single errors', function (t) {
+	const form = new FormSpine('/', {
+		name: {
+			value: "Lasse Rafn"
+		},
+		email: { required: true }
+	});
+
+	form.post().then(function () {
+		t.fail();
+	}).catch(function () {
+		form.errors.clear();
+
+		t.true(form.errors.count() === 0);
+	});
+
+	form.post().then(function () {
+		t.fail();
+	}).catch(function () {
+		form.errors.clear('email');
+
+		t.true(form.errors.count() === 0);
+	});
+});
+
+test('form can have custom error messages', function (t) {
+	const form = new FormSpine('/', {
+		name: {
+			value: "Lasse Rafn"
+		},
+		email: { required: true }
+	}, { required: "Hello. Please input this field, good sir."});
+
+	return form.post().then(function () {
+		t.fail();
+	}).catch(function () {
+		t.true(form.errors.first('email') === 'Hello. Please input this field, good sir.');
+	});
+});
