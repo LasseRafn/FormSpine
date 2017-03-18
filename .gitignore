@@ -3,3 +3,6 @@ demo-app
 node_modules
 *.map
 dist
+.nyc_output
+coverage
+coverage.lcov

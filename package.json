@@ -1,6 +1,6 @@
 {
 	"name": "form-spine",
-	"version": "0.8.9",
+	"version": "0.9.01",
 	"description": "A lightweight form class with error handling, validation, and ajax requests (using fetch)",
 	"main": "dist/formspine.js",
 	"module": "dist/formspine.es.js",
@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/LasseRafn/form-spine#readme",
 	"dependencies": {
+		"codecov": "^2.0.2",
 		"unfetch": "^2.1.2"
 	},
 	"files": [
@@ -36,7 +37,8 @@
 		"build": "npm-run-all --silent clean -p rollup:* -p minify:* -s size",
 		"size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size)\"",
 		"prepublish": "npm run -s build",
-		"test": "ava test/test.js",
+		"test": "nyc --check-coverage --lines 90 ava test/test.js",
+		"coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
 		"clean": "rimraf dist && mkdirp dist",
 		"release": "npm run -s build && git commit -am $npm_package_version && git tag $npm_package_version && git push origin master && git push --tags && npm publish",
 		"minify:cjs": "uglifyjs $npm_package_main -cm toplevel -o $npm_package_main -p relative --in-source-map ${npm_package_main}.map --source-map ${npm_package_main}.map",
