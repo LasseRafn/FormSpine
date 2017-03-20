@@ -1,4 +1,4 @@
-require('unfetch/polyfill');
+const fetch = require('unfetch');
 
 class ErrorBag {
 	constructor() {
