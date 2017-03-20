@@ -1,7 +1,7 @@
 var Validator = require('./Validator');
 var ErrorBag = require('./ErrorBag');
 
-import fetch from "unfetch";
+require("unfetch/polyfill");
 
 class FormSpine {
 	constructor(url, fields, customErrorMessages, clearOnSuccess) {
