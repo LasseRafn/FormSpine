@@ -59,44 +59,43 @@ class FormSpine {
 		self.errors.clear();
 
 		return new Promise(function (resolve, reject) {
-			const validationResponse = self.validator.validate(self.fields);
+				const validationResponse = self.validator.validate(self.fields);
 
-			if (Object.keys(validationResponse).length > 0) {
-				self.errors.set(validationResponse);
-				reject(validationResponse);
+				if (Object.keys(validationResponse).length > 0) {
+					self.errors.set(validationResponse);
+					reject(validationResponse);
 
-				return false;
-			}
+					return false;
+				}
 
-			fetch(self.url, {
-				method: method.toUpperCase(),
-				credentials: 'include',
-				headers: self.headers,
-				body: JSON.stringify(self.data())
-			}).then(function (response) {
-				if (response.ok) {
+				fetch(self.url, {
+					method: method.toUpperCase(),
+					credentials: 'include',
+					headers: self.headers,
+					body: JSON.stringify(self.data())
+				}).then(function (response) {
 					response.json().then(function (data) {
-						self.onSuccess(data);
-						resolve(data);
-					}).catch(function () {
-						response.text().then(function (data) {
+						if (response.ok) {
 							self.onSuccess(data);
 							resolve(data);
-						});
-					});
-				} else {
-					response.json().then(function (data) {
-						self.onFail(data);
-						reject(data);
-					}).catch(function () {
-						response.text().then(function (data) {
+						} else {
 							self.onFail(data);
 							reject(data);
+						}
+					}).catch(function () {
+						response.text().then(function (data) {
+							if (response.ok) {
+								self.onSuccess(data);
+								resolve(data);
+							} else {
+								self.onFail(data);
+								reject(data);
+							}
 						});
 					});
-				}
-			});
-		});
+				});
+			}
+		);
 	}
 
 	onSuccess() {
