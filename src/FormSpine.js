@@ -28,12 +28,6 @@ class FormSpine {
 		}
 	}
 
-	validate() {
-		this.errors.clear();
-
-		return this.validator.validate(this.fields);
-	}
-
 	data() {
 		let formData = {};
 
@@ -62,9 +56,10 @@ class FormSpine {
 
 	submit(method) {
 		var self = this;
+		self.errors.clear();
 
 		return new Promise(function (resolve, reject) {
-			const validationResponse = self.validate();
+			const validationResponse = self.validator.validate(self.fields);
 
 			if (Object.keys(validationResponse).length > 0) {
 				self.errors.set(validationResponse);
