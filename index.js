@@ -19,7 +19,7 @@ class ErrorBag {
 	}
 
 	get(field) {
-		return this.errors[field] !== undefined ? this.errors[field] : [];
+		return this.errors[field] || [];
 	}
 
 	first(field) {
@@ -51,7 +51,7 @@ class ErrorBag {
 
 module.exports = ErrorBag;
 class Validator {
-	constructor(customMessages) {
+	constructor(messages) {
 		this.messages = {
 			regex: "The :field field is invalid.",
 			required: "The :field field is required.",
@@ -63,10 +63,8 @@ class Validator {
 			checked: "The :field must be checked."
 		};
 
-		if (customMessages !== undefined) {
-			for (let message in customMessages) {
-				this.messages[message] = customMessages[message];
-			}
+		for (let message in messages || {}) {
+			this.messages[message] = messages[message];
 		}
 	}
 
@@ -145,14 +143,14 @@ module.exports = Validator;
 
 class FormSpine {
 	constructor(url, fields, options) {
-		this.options = options || {messages: {}, resetOnSuccess: false};
+		this.options = options || {};
 		this.errors = new ErrorBag;
 		this.setupFields(fields);
 		this.url = url;
 		this.headers = {'Content-Type': 'application/json'};
 
-		this.resetOnSuccess = this.options['resetOnSuccess'] !== undefined ? this.options.resetOnSuccess : false;
-		this.validator = new Validator(this.options['messages'] !== undefined ? this.options.messages : {});
+		this.resetOnSuccess = this.options.resetOnSuccess || false;
+		this.validator = new Validator(this.options.messages || {});
 
 		if (this.options['headers'] !== undefined) {
 			for (let header in this.options.headers) {
@@ -166,8 +164,8 @@ class FormSpine {
 		this.originalValues = {};
 
 		for (let field in fields) {
-			fields[field]["value"] = fields[field].value ? fields[field].value : "";
-			fields[field]["name"] = fields[field].name ? fields[field].name : field;
+			fields[field]["value"] = fields[field].value || "";
+			fields[field]["name"] = fields[field].name || field;
 
 			this.fields[field] = fields[field];
 			this.originalValues[field] = this.fields[field].value;

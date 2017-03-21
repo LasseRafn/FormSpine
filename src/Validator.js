@@ -1,5 +1,5 @@
 class Validator {
-	constructor(customMessages) {
+	constructor(messages) {
 		this.messages = {
 			regex: "The :field field is invalid.",
 			required: "The :field field is required.",
@@ -11,10 +11,8 @@ class Validator {
 			checked: "The :field must be checked."
 		};
 
-		if (customMessages !== undefined) {
-			for (let message in customMessages) {
-				this.messages[message] = customMessages[message];
-			}
+		for (let message in messages || {}) {
+			this.messages[message] = messages[message];
 		}
 	}
 

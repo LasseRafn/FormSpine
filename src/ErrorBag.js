@@ -18,7 +18,7 @@ class ErrorBag {
 	}
 
 	get(field) {
-		return this.errors[field] !== undefined ? this.errors[field] : [];
+		return this.errors[field] || [];
 	}
 
 	first(field) {

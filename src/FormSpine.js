@@ -3,14 +3,14 @@ const Validator = require("./Validator");
 
 class FormSpine {
 	constructor(url, fields, options) {
-		this.options = options || {messages: {}, resetOnSuccess: false};
+		this.options = options || {};
 		this.errors = new ErrorBag;
 		this.setupFields(fields);
 		this.url = url;
 		this.headers = {'Content-Type': 'application/json'};
 
-		this.resetOnSuccess = this.options['resetOnSuccess'] !== undefined ? this.options.resetOnSuccess : false;
-		this.validator = new Validator(this.options['messages'] !== undefined ? this.options.messages : {});
+		this.resetOnSuccess = this.options.resetOnSuccess || false;
+		this.validator = new Validator(this.options.messages || {});
 
 		if (this.options['headers'] !== undefined) {
 			for (let header in this.options.headers) {
@@ -24,8 +24,8 @@ class FormSpine {
 		this.originalValues = {};
 
 		for (let field in fields) {
-			fields[field]["value"] = fields[field].value ? fields[field].value : "";
-			fields[field]["name"] = fields[field].name ? fields[field].name : field;
+			fields[field]["value"] = fields[field].value || "";
+			fields[field]["name"] = fields[field].name || field;
 
 			this.fields[field] = fields[field];
 			this.originalValues[field] = this.fields[field].value;

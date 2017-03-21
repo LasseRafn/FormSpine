@@ -373,3 +373,34 @@ test('Can set custom headers', function (t) {
 
 	t.true(JSON.stringify(form.headers) === "{\"Content-Type\":\"application/json\",\"X-TEST\":true}");
 });
+
+test('Fields can have custom names', function (t) {
+	const form = new FormSpine('/', {
+		full_name: {
+			name: "full name",
+			required: true
+		},
+		email: {
+			required: true
+		},
+	});
+
+	return form.post().then(function () {
+		t.fail();
+	}).catch(function () {
+		t.true(form.errors.first('full_name') === "The full name field is required.");
+		t.true(form.errors.first('email') == "The email field is required.");
+	});
+});
+
+test('Fields can have default values', function (t) {
+	const form = new FormSpine('/', {
+		full_name: {
+			value: "John Doe"
+		},
+		email: {},
+	});
+
+	t.true(form.fields.full_name.value === "John Doe");
+	t.true(form.fields.email.value === "");
+});
