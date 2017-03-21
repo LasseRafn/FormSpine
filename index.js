@@ -152,11 +152,7 @@ class FormSpine {
 		this.resetOnSuccess = this.options.resetOnSuccess || false;
 		this.validator = new Validator(this.options.messages || {});
 
-		if (this.options['headers'] !== undefined) {
-			for (let header in this.options.headers) {
-				this.headers[header] = this.options.headers[header];
-			}
-		}
+		this.headers = Object.assign(this.headers, this.options['headers'] || {});
 	}
 
 	setupFields(fields) {
