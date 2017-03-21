@@ -26,6 +26,7 @@ class Validator {
 				errors[field] = validateResult;
 			}
 		}
+
 		return errors;
 	}
 

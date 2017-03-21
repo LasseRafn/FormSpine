@@ -78,6 +78,7 @@ class Validator {
 				errors[field] = validateResult;
 			}
 		}
+
 		return errors;
 	}
 
@@ -115,7 +116,7 @@ class Validator {
 		}
 
 		if (field.regex && !field.regex.test(field.value)) {
-			errors.push(this.makeMessage(field.name, "regex", {regex: field.regex}));
+			errors.push(this.makeMessage(field.name, "regex"));
 		}
 
 		if (field.checked && !field.value) {
@@ -148,10 +149,8 @@ class FormSpine {
 		this.setupFields(fields);
 		this.url = url;
 		this.headers = {'Content-Type': 'application/json'};
-
 		this.resetOnSuccess = this.options.resetOnSuccess || false;
 		this.validator = new Validator(this.options.messages || {});
-
 		this.headers = Object.assign(this.headers, this.options['headers'] || {});
 	}
 

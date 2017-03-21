@@ -8,10 +8,8 @@ class FormSpine {
 		this.setupFields(fields);
 		this.url = url;
 		this.headers = {'Content-Type': 'application/json'};
-
 		this.resetOnSuccess = this.options.resetOnSuccess || false;
 		this.validator = new Validator(this.options.messages || {});
-
 		this.headers = Object.assign(this.headers, this.options['headers'] || {});
 	}
 
