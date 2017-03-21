@@ -1,6 +1,5 @@
-var Validator = require('./Validator');
-var ErrorBag = require('./ErrorBag');
-
+const Validator = require('./Validator');
+const ErrorBag = require('./ErrorBag');
 const fetch = require('unfetch');
 
 class FormSpine {

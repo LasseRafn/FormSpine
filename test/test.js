@@ -1,6 +1,6 @@
 import test from "ava";
 import sinon from "sinon";
-import FormSpine from "../src/index";
+import FormSpine from "../console-test";
 
 let xhr = {
 	setRequestHeader: sinon.spy(),
