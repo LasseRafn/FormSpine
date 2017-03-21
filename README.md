@@ -23,6 +23,7 @@ It's promise-based, which makes running scripts on error/success very easy.
 * [Usage](#usage)
 * [API](#api)
 * [Examples](#examples)
+* [Slim Spine](#slim-spine)
 * [Inspiration](#inspiration)
 
 ------------------------------------------------
@@ -189,6 +190,16 @@ let formObject = new FormSpine('/submit', {}, customMessages);
 ## Examples
 
 .. Coming soon ...
+
+------------------------------------------------
+
+## Slim Spine
+
+Don't care about client-side validation, and does every byte count? How about using **Slim Spine**?
+
+It's a `~0.9kb` version of Form Spine, without the Validation library. It still handles errors, but will not validate fields.
+
+[Get Slim Spine here](#) <-- COMING SOON
 
 ------------------------------------------------
 
