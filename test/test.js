@@ -251,7 +251,9 @@ test('form resets if asked to', function (t) {
 			value: "Lasse Rafn"
 		},
 		email: {}
-	}, {}, true);
+	}, {
+		resetOnSuccess: true
+	});
 
 	form.fields.name.value = "John Doe";
 	form.fields.email.value = "demo@gmail.com";
@@ -286,7 +288,7 @@ test('ErrorBag has errors', function (t) {
 		name: {
 			value: "Lasse Rafn"
 		},
-		email: { required: true }
+		email: {required: true}
 	});
 
 	return form.post().then(function (data) {
@@ -302,7 +304,7 @@ test('ErrorBag can get first error', function (t) {
 		name: {
 			value: "Lasse Rafn"
 		},
-		email: { required: true, min_length: 100 }
+		email: {required: true, min_length: 100}
 	});
 
 	return form.post().then(function (data) {
@@ -317,7 +319,7 @@ test('ErrorBag can clear errors and single errors', function (t) {
 		name: {
 			value: "Lasse Rafn"
 		},
-		email: { required: true }
+		email: {required: true}
 	});
 
 	form.post().then(function () {
@@ -342,8 +344,8 @@ test('form can have custom error messages', function (t) {
 		name: {
 			value: "Lasse Rafn"
 		},
-		email: { required: true }
-	}, { required: "Hello. Please input this field, good sir."});
+		email: {required: true}
+	}, {messages: {required: "Hello. Please input this field, good sir."}});
 
 	return form.post().then(function () {
 		t.fail();
@@ -357,7 +359,17 @@ test('Errorbag can set errors', function (t) {
 		name: {}
 	});
 
-	form.errors.set({ name: "Something went wrong!"});
+	form.errors.set({name: "Something went wrong!"});
 
 	t.true(form.errors.first('name') === 'Something went wrong!');
+});
+
+test('Can set custom headers', function (t) {
+	const form = new FormSpine('/', {}, {
+		headers: {
+			"X-TEST": true
+		}
+	});
+
+	t.true(JSON.stringify(form.headers) === "{\"Content-Type\":\"application/json\",\"X-TEST\":true}");
 });

@@ -109,8 +109,15 @@ The `FormSpine` class is the backbone of Form Spine and the class you'll be usin
 | ---- |----- | ----------- |--------- | ------- |
 | `url` | string | The url that requests should be send to. | true | `''` |
 | `fields` | object | The fields in the form. | true | `{}` |
-| `customErrorMessages` | object | Custom validation messages. | false | `{}` |
-| `clearOnSuccess` | boolean | Determines if form fields should be cleared on success. | false | false |
+| `options` | object | An object with additional options | false | `{}` |
+
+##### FormSpine `options` parameters
+
+| Name | Type | Description | Required | Default |
+| ---- |----- | ----------- |--------- | ------- |
+| `messages` | object | Custom error validation messages. | false | `{}` |
+| `resetOnSuccess` | boolean | Determines if form fields should be cleared on success. | false | false |
+| `headers` | object | Adds custom headers to each request | false | `{}` |
 
 ##### `url` [REQUIRED]
 

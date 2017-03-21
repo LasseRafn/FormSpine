@@ -1,10 +1,22 @@
+const ErrorBag = require("./ErrorBag");
+const Validator = require("./Validator");
+
 class FormSpine {
-	constructor(url, fields, customErrorMessages, clearOnSuccess) {
+	constructor(url, fields, options) {
+		this.options = options || {messages: {}, resetOnSuccess: false};
 		this.errors = new ErrorBag;
 		this.setupFields(fields);
 		this.url = url;
-		this.validator = new Validator(customErrorMessages);
-		this.clearOnSuccess = clearOnSuccess !== undefined ? clearOnSuccess : false;
+		this.headers = {'Content-Type': 'application/json'};
+
+		this.resetOnSuccess = this.options['resetOnSuccess'] !== undefined ? this.options.resetOnSuccess : false;
+		this.validator = new Validator(this.options['messages'] !== undefined ? this.options.messages : {});
+
+		if (this.options['headers'] !== undefined) {
+			for (let header in this.options.headers) {
+				this.headers[header] = this.options.headers[header];
+			}
+		}
 	}
 
 	setupFields(fields) {
@@ -68,9 +80,7 @@ class FormSpine {
 			fetch(self.url, {
 				method: method.toUpperCase(),
 				credentials: 'include',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers: self.headers,
 				body: JSON.stringify(self.data())
 			}).then(function (response) {
 				if (response.ok) {
@@ -99,7 +109,7 @@ class FormSpine {
 	}
 
 	onSuccess() {
-		if (this.clearOnSuccess) {
+		if (this.resetOnSuccess) {
 			this.reset();
 		}
 	}
