@@ -6,4 +6,3 @@ dist
 .nyc_output
 coverage
 coverage.lcov
-console-test.js
