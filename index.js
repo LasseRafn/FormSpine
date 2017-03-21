@@ -116,7 +116,7 @@ class Validator {
 		}
 
 		if (field.regex && !field.regex.test(field.value)) {
-			errors.push(this.makeMessage(field.name, "regex"));
+			errors.push(this.makeMessage(field.name, "regex", {regex: field.regex}));
 		}
 
 		if (field.checked && !field.value) {
