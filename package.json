@@ -33,7 +33,7 @@
 	],
 	"scripts": {
 		"lint": "eslint index.js",
-		"build": "npm-run-all --silent clean -p rollup:* -p minify:* -s size",
+		"build": "node index-builder.js && npm-run-all --silent clean -p rollup:* -p minify:* -s size",
 		"size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size)\"",
 		"prepublish": "npm run -s build",
 		"test": "node test/create-test-file.js && nyc --check-coverage --lines 95 ava test/test.js && rimraf console-test.js",

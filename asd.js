@@ -1,4 +1,5 @@
 require('unfetch/polyfill');
+
 class ErrorBag {
 	constructor() {
 		this.errors = {};
@@ -49,7 +50,7 @@ class ErrorBag {
 	}
 }
 
-module.exports = ErrorBag;class Validator {
+class Validator {
 	constructor(customMessages) {
 		this.messages = {
 			regex: "The :field field is invalid.",
@@ -139,7 +140,6 @@ module.exports = ErrorBag;class Validator {
 	}
 }
 
-module.exports = Validator;
 class FormSpine {
 	constructor(url, fields, customErrorMessages, clearOnSuccess) {
 		this.errors = new ErrorBag;

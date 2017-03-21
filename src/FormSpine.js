@@ -1,7 +1,3 @@
-const Validator = require('./Validator');
-const ErrorBag = require('./ErrorBag');
-const fetch = require('unfetch');
-
 class FormSpine {
 	constructor(url, fields, customErrorMessages, clearOnSuccess) {
 		this.errors = new ErrorBag;
