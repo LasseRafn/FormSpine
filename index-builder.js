@@ -13,7 +13,7 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 		return console.log(err);
 	}
 
-	data = data.replace('module.exports = Validator;', '');
+	data = data.replace('export default Validator;', '');
 
 	validatorData = data;
 
@@ -22,7 +22,7 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 			return console.log(err);
 		}
 
-		data = data.replace('module.exports = ErrorBag;', '');
+		data = data.replace('export default ErrorBag;', '');
 
 		errorBagData = data;
 	});
@@ -35,8 +35,8 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 			return console.log(err);
 		}
 
-		result += data.replace('const Validator = require("./Validator");', validatorData)
-			.replace('const ErrorBag = require("./ErrorBag");', errorBagData);
+		result += data.replace('import Validator from "./Validator";', validatorData)
+			.replace('import ErrorBag from "./ErrorBag";', errorBagData);
 
 		fs.writeFile('index.js', result, 'utf8', function (err) {
 			if (err) return console.log(err);

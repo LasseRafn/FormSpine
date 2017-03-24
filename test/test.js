@@ -1,6 +1,6 @@
 import test from "ava";
 import sinon from "sinon";
-import FormSpine from "../index";
+import FormSpine from "../dist/formspine.umd";
 const fetch = require('unfetch');
 global.fetch = fetch;
 

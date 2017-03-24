@@ -267,4 +267,4 @@ class FormSpine {
 	}
 }
 
-module.exports = FormSpine;
+export default FormSpine;

@@ -87,4 +87,4 @@ class Validator {
 	}
 }
 
-module.exports = Validator;
+export default Validator;

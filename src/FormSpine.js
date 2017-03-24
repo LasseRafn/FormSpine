@@ -1,5 +1,5 @@
-const ErrorBag = require("./ErrorBag");
-const Validator = require("./Validator");
+import ErrorBag from "./ErrorBag";
+import Validator from "./Validator";
 
 class FormSpine {
 	constructor(url, fields, options) {
@@ -127,4 +127,4 @@ class FormSpine {
 	}
 }
 
-module.exports = FormSpine;
+export default FormSpine;
