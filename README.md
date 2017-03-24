@@ -54,12 +54,6 @@ import FormSpine from "form-spine";
 // CommonJS
 var FormSpine = require("form-spine");
 ```
-
-It's also available on unpkg:
-```html
-<script src="//unpkg.com/form-spine/dist/formspine.umd.js"></script>
-```
-
 ------------------------------------------------
 
 ## Usage
