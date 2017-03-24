@@ -35,7 +35,7 @@
 		"lint": "eslint index.js",
 		"build": "node index-builder.js && npm-run-all --silent clean -p rollup:* -p minify:* -s size",
 		"size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size) bytes \"",
-		"prepublish": "npm run -s build && npm run test && npm run lint",
+		"prepublish": "npm run test && npm run lint",
 		"test": "node test/create-test-file.js && nyc --check-coverage --lines 95 ava test/test.js",
 		"coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
 		"clean": "rimraf dist && mkdirp dist",
