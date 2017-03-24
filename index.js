@@ -1,4 +1,3 @@
-require('unfetch/polyfill');
 class ErrorBag {
 	constructor() {
 		this.errors = {};

@@ -54,6 +54,11 @@ import FormSpine from "form-spine";
 // CommonJS
 var FormSpine = require("form-spine");
 ```
+
+#### Remember to polyfill `Fetch`
+```js
+require("unfetch/polyfill");
+```
 ------------------------------------------------
 
 ## Usage
@@ -177,7 +182,7 @@ let customMessages = {
 };
 
 // Init form
-let formObject = new FormSpine('/submit', {}, customMessages);
+let formObject = new FormSpine('/submit', {}, { messages: customMessages });
 ```
 
 ------------------------------------------------
@@ -185,6 +190,7 @@ let formObject = new FormSpine('/submit', {}, customMessages);
 ## Examples
 
 [Vue Demo](http://codepen.io/LasseRafn/pen/RpJMLY/)
+[Preact Demo](http://codepen.io/LasseRafn/pen/qrKMgG/)
 
 ------------------------------------------------
 

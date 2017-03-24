@@ -27,7 +27,8 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 		errorBagData = data;
 	});
 
-	var result = "require('unfetch/polyfill');\n";
+	//var result = "require('unfetch/polyfill');\n";
+	var result = "";
 
 	fs.readFile('src/FormSpine.js', 'utf8', function (err, data) {
 		if (err) {
