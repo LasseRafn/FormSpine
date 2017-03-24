@@ -48,4 +48,5 @@ class ErrorBag {
 	}
 }
 
-export default ErrorBag;
+export default {ErrorBag};
+export {ErrorBag};

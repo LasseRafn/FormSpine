@@ -49,6 +49,7 @@ class ErrorBag {
 }
 
 
+
 class Validator {
 	constructor(messages) {
 		this.messages = {

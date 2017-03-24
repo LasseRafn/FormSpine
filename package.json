@@ -1,5 +1,5 @@
 {
-	"name": "form-spine",
+	"name": "FormSpine",
 	"version": "0.9.707",
 	"description": "A lightweight form class with error handling, validation, and ajax requests (using fetch)",
 	"main": "dist/formspine.js",
@@ -8,7 +8,7 @@
 	"umd:main": "dist/formspine.umd.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/LasseRafn/form-spine.git"
+		"url": "git+https://github.com/LasseRafn/FormSpine.git"
 	},
 	"keywords": [
 		"form",
@@ -20,9 +20,9 @@
 	"author": "Lasse Rafn <lasserafn@gmail.com>",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/LasseRafn/form-spine/issues"
+		"url": "https://github.com/LasseRafn/FormSpine/issues"
 	},
-	"homepage": "https://github.com/LasseRafn/form-spine#readme",
+	"homepage": "https://github.com/LasseRafn/FormSpine#readme",
 	"dependencies": {
 		"codecov": "^2.0.2",
 		"unfetch": "^2.1.2"

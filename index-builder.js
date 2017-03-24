@@ -13,7 +13,8 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 		return console.log(err);
 	}
 
-	data = data.replace('export default Validator;', '');
+	data = data.replace('export default {Validator};', '');
+	data = data.replace('export {Validator};', '');
 
 	validatorData = data;
 
@@ -22,7 +23,8 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 			return console.log(err);
 		}
 
-		data = data.replace('export default ErrorBag;', '');
+		data = data.replace('export default {ErrorBag};', '');
+		data = data.replace('export {ErrorBag};', '');
 
 		errorBagData = data;
 	});

@@ -1,12 +1,12 @@
 <p align="center" style="text-align: center;">
-<a href="http://lasserafn.github.io/form-spine/"><img src="https://cdn.rawgit.com/LasseRafn/form-spine/34b626b0/logo.svg" width="502" height="112" alt="Form Spine Logo" /></a>
+<a href="http://lasserafn.github.io/formspine/"><img src="https://cdn.rawgit.com/LasseRafn/formspine/34b626b0/logo.svg" width="502" height="112" alt="Form Spine Logo" /></a>
 </p>
 
 <p align="center" style="text-align: center;">
-<a href="https://codecov.io/gh/LasseRafn/form-spine"><img src="https://img.shields.io/codecov/c/github/LasseRafn/form-spine.svg?style=flat-square" /></a>
-<a href="https://travis-ci.org/LasseRafn/form-spine"><img src="https://img.shields.io/travis/LasseRafn/form-spine.svg?style=flat-square" /></a>
-<a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/v/form-spine.svg?style=flat-square" /></a>
-<a href="http://npmjs.com/package/form-spine"><img src="https://img.shields.io/npm/dt/form-spine.svg?style=flat-square" /></a>
+<a href="https://codecov.io/gh/LasseRafn/formspine"><img src="https://img.shields.io/codecov/c/github/LasseRafn/formspine.svg?style=flat-square" /></a>
+<a href="https://travis-ci.org/LasseRafn/formspine"><img src="https://img.shields.io/travis/LasseRafn/formspine.svg?style=flat-square" /></a>
+<a href="http://npmjs.com/package/formspine"><img src="https://img.shields.io/npm/v/formspine.svg?style=flat-square" /></a>
+<a href="http://npmjs.com/package/formspine"><img src="https://img.shields.io/npm/dt/formspine.svg?style=flat-square" /></a>
 </p>
 
 # Form Spine
@@ -36,12 +36,12 @@ Adding Form Spine to your project requires NPM. Optinally you could use [Yarn](h
 
 Run the following command in your project root:
 ```bash
-npm install form-spine --save
+npm install formspine --save
 ```
 
 Or with Yarn:
 ```bash
-yarn add form-spine
+yarn add formspine
 ```
 
 ### Using In Your Project
@@ -49,10 +49,10 @@ yarn add form-spine
 Using Rollup or WebPack (or another module bundler), you can do like this: 
 ```js
 // ES6
-import FormSpine from "form-spine";
+import FormSpine from "formspine";
 
 // CommonJS
-var FormSpine = require("form-spine");
+var FormSpine = require("formspine");
 ```
 
 #### Remember to polyfill `Fetch`

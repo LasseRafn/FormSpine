@@ -87,4 +87,5 @@ class Validator {
 	}
 }
 
-export default Validator;
+export default {Validator};
+export {Validator};
