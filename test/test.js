@@ -1,6 +1,8 @@
 import test from "ava";
 import sinon from "sinon";
-import FormSpine from "../console-test";
+import FormSpine from "../index";
+const fetch = require('unfetch');
+global.fetch = fetch;
 
 let xhr = {
 	setRequestHeader: sinon.spy(),
