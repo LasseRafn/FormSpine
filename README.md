@@ -156,6 +156,7 @@ let formObject = new FormSpine('/submit', fields);
 | `no_digits` | boolean | Validation rule: may not contain digits | `false` |
 | `only_digits` | boolean | Validation rule: may only contain digits | `false` |
 | `checked` | boolean | Validation rule: has to be checked / be `true` (for checkbox/radio inputs) | `false` |
+| `must_match` | string | Validation rule: has to match another field (good for password confirmations) | `` |
 | `regex` | string/regex | Validation rule: must match regex |  |
 
 ##### `customMessages` [OPTIONAL]
