@@ -1,11 +1,10 @@
 {
 	"name": "form-spine",
-	"version": "0.9.702",
+	"version": "0.9.703",
 	"description": "A lightweight form class with error handling, validation, and ajax requests (using fetch)",
 	"main": "dist/formspine.js",
 	"module": "dist/formspine.es.js",
 	"jsnext:main": "dist/formspine.es.js",
-	"umd:main": "dist/formspine.umd.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/LasseRafn/form-spine.git"
