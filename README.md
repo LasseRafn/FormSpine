@@ -184,7 +184,7 @@ let formObject = new FormSpine('/submit', {}, customMessages);
 
 ## Examples
 
-.. Coming soon ...
+[Vue Demo](http://codepen.io/LasseRafn/pen/RpJMLY/)
 
 ------------------------------------------------
 
