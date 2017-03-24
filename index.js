@@ -49,7 +49,7 @@ class ErrorBag {
 	}
 }
 
-module.exports = ErrorBag;
+
 class Validator {
 	constructor(messages) {
 		this.messages = {
@@ -60,7 +60,7 @@ class Validator {
 			must_match: "The :field field match the :must_match field.",
 			min_length: "The :field field must be at least :min_length characters.",
 			max_length: "The :field field must not be longer than :max_length characters.",
-			checked: "The :field must be checked."
+			checked: "The :field field must be checked."
 		};
 
 		for (let message in messages || {}) {
@@ -139,7 +139,7 @@ class Validator {
 	}
 }
 
-module.exports = Validator;
+
 
 
 class FormSpine {
@@ -159,8 +159,8 @@ class FormSpine {
 		this.originalValues = {};
 
 		for (let field in fields) {
-			fields[field]["value"] = fields[field].value || "";
-			fields[field]["name"] = fields[field].name || field;
+			fields[field].value = fields[field].value || "";
+			fields[field].name = fields[field].name || field;
 
 			this.fields[field] = fields[field];
 			this.originalValues[field] = this.fields[field].value;
@@ -194,7 +194,7 @@ class FormSpine {
 	}
 
 	submit(method) {
-		var self = this;
+		const self = this;
 		self.errors.clear();
 
 		return new Promise(function (resolve, reject) {

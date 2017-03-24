@@ -8,7 +8,7 @@ class Validator {
 			must_match: "The :field field match the :must_match field.",
 			min_length: "The :field field must be at least :min_length characters.",
 			max_length: "The :field field must not be longer than :max_length characters.",
-			checked: "The :field must be checked."
+			checked: "The :field field must be checked."
 		};
 
 		for (let message in messages || {}) {

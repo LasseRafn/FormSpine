@@ -13,12 +13,16 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 		return console.log(err);
 	}
 
+	data = data.replace('module.exports = Validator;', '');
+
 	validatorData = data;
 
 	fs.readFile('src/ErrorBag.js', 'utf8', function (err, data) {
 		if (err) {
 			return console.log(err);
 		}
+
+		data = data.replace('module.exports = ErrorBag;', '');
 
 		errorBagData = data;
 	});

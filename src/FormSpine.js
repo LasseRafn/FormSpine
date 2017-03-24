@@ -18,8 +18,8 @@ class FormSpine {
 		this.originalValues = {};
 
 		for (let field in fields) {
-			fields[field]["value"] = fields[field].value || "";
-			fields[field]["name"] = fields[field].name || field;
+			fields[field].value = fields[field].value || "";
+			fields[field].name = fields[field].name || field;
 
 			this.fields[field] = fields[field];
 			this.originalValues[field] = this.fields[field].value;
@@ -53,7 +53,7 @@ class FormSpine {
 	}
 
 	submit(method) {
-		var self = this;
+		const self = this;
 		self.errors.clear();
 
 		return new Promise(function (resolve, reject) {
