@@ -27,21 +27,21 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 		data = data.replace('export {ErrorBag};', '');
 
 		errorBagData = data;
-	});
 
-	//var result = "require('unfetch/polyfill');\n";
-	var result = "";
+		//var result = "require('unfetch/polyfill');\n";
+		var result = "";
 
-	fs.readFile('src/FormSpine.js', 'utf8', function (err, data) {
-		if (err) {
-			return console.log(err);
-		}
+		fs.readFile('src/FormSpine.js', 'utf8', function (err, data) {
+			if (err) {
+				return console.log(err);
+			}
 
-		result += data.replace('import Validator from "./Validator";', validatorData)
-			.replace('import ErrorBag from "./ErrorBag";', errorBagData);
+			result += data.replace('import Validator from "./Validator";', validatorData)
+				.replace('import ErrorBag from "./ErrorBag";', errorBagData);
 
-		fs.writeFile('src/index.js', result, 'utf8', function (err) {
-			if (err) return console.log(err);
+			fs.writeFile('src/index.js', result, 'utf8', function (err) {
+				if (err) return console.log(err);
+			});
 		});
 	});
 });
