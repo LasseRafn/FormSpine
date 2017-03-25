@@ -40,7 +40,7 @@ fs.readFile('src/Validator.js', 'utf8', function (err, data) {
 		result += data.replace('import Validator from "./Validator";', validatorData)
 			.replace('import ErrorBag from "./ErrorBag";', errorBagData);
 
-		fs.writeFile('index.js', result, 'utf8', function (err) {
+		fs.writeFile('src/index.js', result, 'utf8', function (err) {
 			if (err) return console.log(err);
 		});
 	});

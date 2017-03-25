@@ -6,7 +6,7 @@ let {FORMAT} = process.env;
 export default {
 	useStrict: false,
 	sourceMap: true,
-	entry: 'index.js',
+	entry: 'src/index.js',
 	plugins: [
 		buble(),
 		FORMAT === 'cjs' && replace({

@@ -29,7 +29,7 @@
 	},
 	"files": [
 		"dist",
-		"index.js"
+		"src/index.js"
 	],
 	"scripts": {
 		"lint": "eslint index.js",
