@@ -23,7 +23,7 @@ It's promise-based, which makes running scripts on error/success very easy.
 * [Usage](#usage)
 * [API](#api)
 * [Examples](#examples)
-* [SlimSpine (900 bytes alternative)](#slimspine)
+* [Phalange (900 bytes alternative)](#phalange)
 * [Inspiration](#inspiration)
 
 ------------------------------------------------
@@ -208,13 +208,13 @@ let formObject = new FormSpine('/submit', {}, { messages: customMessages });
 
 ------------------------------------------------
 
-## SlimSpine
+## Phalange
 
-Don't care about client-side validation, and does every byte count? How about using **SlimSpine**?
+Don't care about client-side validation, and does every byte count? How about using **Phalange**?
 
 It's a `~0.9kb` version of FormSpine, without the Validation library. It still handles errors, but will not validate fields.
 
-[Get SlimSpine here](#) <-- COMING SOON
+[Get Phalange here](#) <-- COMING SOON
 
 ------------------------------------------------
 
