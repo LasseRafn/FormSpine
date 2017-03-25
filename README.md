@@ -1,17 +1,17 @@
 <p align="center" style="text-align: center;">
-<a href="http://lasserafn.github.io/formspine/"><img src="https://cdn.rawgit.com/LasseRafn/formspine/34b626b0/logo.svg" width="502" height="112" alt="Form Spine Logo" /></a>
+<a href="http://lasserafn.github.io/formspine/"><img src="https://cdn.rawgit.com/LasseRafn/formspine/34b626b0/logo.svg" width="502" height="112" alt="FormSpine Logo" /></a>
 </p>
 
 <p align="center" style="text-align: center;">
-<a href="https://codecov.io/gh/LasseRafn/formspine"><img src="https://img.shields.io/codecov/c/github/LasseRafn/formspine.svg?style=flat-square" /></a>
-<a href="https://travis-ci.org/LasseRafn/formspine"><img src="https://img.shields.io/travis/LasseRafn/formspine.svg?style=flat-square" /></a>
+<a href="https://codecov.io/gh/LasseRafn/FormSpine"><img src="https://img.shields.io/codecov/c/github/LasseRafn/FormSpine.svg?style=flat-square" /></a>
+<a href="https://travis-ci.org/LasseRafn/FormSpine"><img src="https://img.shields.io/travis/LasseRafn/FormSpine.svg?style=flat-square" /></a>
 <a href="http://npmjs.com/package/formspine"><img src="https://img.shields.io/npm/v/formspine.svg?style=flat-square" /></a>
 <a href="http://npmjs.com/package/formspine"><img src="https://img.shields.io/npm/dt/formspine.svg?style=flat-square" /></a>
 </p>
 
-# Form Spine
+# FormSpine
 
-Form Spine is a lightweight (`~4kb`, ~1.2kb gzipped) JavaScript form library with validation, error handling and fetch (Polyfilled with [developit/unfetch](https://github.com/developit/unfetch))
+FormSpine is a lightweight (`~4kb`, ~1.2kb gzipped) JavaScript form library with validation, error handling and fetch (Polyfilled with [developit/unfetch](https://github.com/developit/unfetch))
 
 It's promise-based, which makes running scripts on error/success very easy.
 
@@ -23,7 +23,7 @@ It's promise-based, which makes running scripts on error/success very easy.
 * [Usage](#usage)
 * [API](#api)
 * [Examples](#examples)
-* [Slim Spine](#slim-spine)
+* [SlimSpine](#slimspine)
 * [Inspiration](#inspiration)
 
 ------------------------------------------------
@@ -32,7 +32,7 @@ It's promise-based, which makes running scripts on error/success very easy.
 
 ### Install Instructions
 
-Adding Form Spine to your project requires NPM. Optinally you could use [Yarn](https://yarnpkg.com).
+Adding FormSpine to your project requires NPM. Optinally you could use [Yarn](https://yarnpkg.com).
 
 Run the following command in your project root:
 ```bash
@@ -59,13 +59,26 @@ var FormSpine = require("formspine");
 ```js
 require("unfetch/polyfill");
 ```
+
+#### It's also on unpkg:
+```html
+<script src="//unpkg.com/formspine/dist/formspine.umd.js"></script>
+
+<script>
+var FormSpine = formspine; // to fix name in UMD package, for consistency.
+
+new FormSpine('/', {});
+</script>
+```
+_Please notice that the `fetch` polyfill is **NOT** included in the UMD version._
+ 
 ------------------------------------------------
 
 ## Usage
 
 ### Vue.js example
 ```js
-let formFields = {
+let fields = {
     todo_text: {
         required: true,
         max_length: 50
@@ -75,7 +88,7 @@ let formFields = {
 new Vue({
     el: "#app",
     data: {
-        form: new FormSpine('/create-todo', formFields)
+        form: new FormSpine('/create-todo', fields)
     },
     
     methods: {
@@ -92,7 +105,7 @@ new Vue({
 
 ### The `FormSpine` Class
 
-The `FormSpine` class is the backbone of Form Spine and the class you'll be using.
+The `FormSpine` class is the backbone of FormSpine and the class you'll be using.
 
 #### Methods
 
@@ -121,7 +134,7 @@ The `FormSpine` class is the backbone of Form Spine and the class you'll be usin
 
 ##### `url` [REQUIRED]
 
-The `url` parameter is the first of three parameters, and it defines which url to send requests to upon `submit()`. It can be an absolute or relative url, such as: `/submit` or `https://your-site.com/send`.
+The `url` parameter is the first of three parameters, and it defines which url to send requests to upon submitting. It can be an absolute or relative url, such as: `/submit` or `https://your-site.com/send`.
 
 ##### `fields` [REQUIRED]
 
@@ -194,20 +207,20 @@ let formObject = new FormSpine('/submit', {}, { messages: customMessages });
 
 ------------------------------------------------
 
-## Slim Spine
+## SlimSpine
 
-Don't care about client-side validation, and does every byte count? How about using **Slim Spine**?
+Don't care about client-side validation, and does every byte count? How about using **SlimSpine**?
 
-It's a `~0.9kb` version of Form Spine, without the Validation library. It still handles errors, but will not validate fields.
+It's a `~0.9kb` version of FormSpine, without the Validation library. It still handles errors, but will not validate fields.
 
-[Get Slim Spine here](#) <-- COMING SOON
+[Get SlimSpine here](#) <-- COMING SOON
 
 ------------------------------------------------
 
 ## Inspiration
 I found myself creating similar classes for every new project I started, so I felt it was time to combine everything into a single class that I could use for almost all my projects. Of cause, in the nature of sharing, I decided to open source it.
 
-Form Spine is inspired heavily on [laracasts/vue-forms](https://github.com/laracasts/Vue-Forms)
+FormSpine is inspired heavily on [laracasts/vue-forms](https://github.com/laracasts/Vue-Forms)
 
 If you're into learning, you should really go signup at [Laracasts](https://laracasts.com)
 
