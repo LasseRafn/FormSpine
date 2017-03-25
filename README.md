@@ -23,7 +23,7 @@ It's promise-based, which makes running scripts on error/success very easy.
 * [Usage](#usage)
 * [API](#api)
 * [Examples](#examples)
-* [SlimSpine](#slimspine)
+* [SlimSpine (900 bytes alternative)](#slimspine)
 * [Inspiration](#inspiration)
 
 ------------------------------------------------
@@ -203,6 +203,7 @@ let formObject = new FormSpine('/submit', {}, { messages: customMessages });
 ## Examples
 
 [Vue Demo](http://codepen.io/LasseRafn/pen/RpJMLY/)
+
 [Preact Demo](http://codepen.io/LasseRafn/pen/qrKMgG/)
 
 ------------------------------------------------
