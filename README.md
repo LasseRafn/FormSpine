@@ -1,5 +1,5 @@
 <p align="center" style="text-align: center;">
-<a href="http://lasserafn.github.io/formspine/"><img src="https://cdn.rawgit.com/LasseRafn/formspine/34b626b0/logo.svg" width="502" height="112" alt="FormSpine Logo" /></a>
+<img src="https://cdn.rawgit.com/LasseRafn/FormSpine/e8155597/logo.svg" width="502" height="112" alt="FormSpine Logo" />
 </p>
 
 <p align="center" style="text-align: center;">
