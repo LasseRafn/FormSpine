@@ -132,11 +132,11 @@ The `FormSpine` class is the backbone of FormSpine and the class you'll be using
 | `resetOnSuccess` | boolean | Determines if form fields should be cleared on success. | false | false |
 | `headers` | object | Adds custom headers to each request | false | `{}` |
 
-##### `url` [REQUIRED]
+##### `url`
 
 The `url` parameter is the first of three parameters, and it defines which url to send requests to upon submitting. It can be an absolute or relative url, such as: `/submit` or `https://your-site.com/send`.
 
-##### `fields` [REQUIRED]
+##### `fields`
 
 The fields that you have in the form should be defined here as an object of objects, keyed by field name. This is also where you define validation rules (if any)
 
@@ -177,7 +177,7 @@ let formObject = new FormSpine('/submit', fields);
 | `must_match` | string | Validation rule: has to match another field (good for password confirmations) | `` |
 | `regex` | string/regex | Validation rule: must match regex |  |
 
-##### `customMessages` [OPTIONAL]
+##### `messages`
 
 This parameter is useful if you want to translate or change the validation messages. You have to pass in an object of strings with error messages.
 
