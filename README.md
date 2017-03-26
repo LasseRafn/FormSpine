@@ -23,7 +23,7 @@ It's promise-based, which makes running scripts on error/success very easy.
 * [Usage](#usage)
 * [API](#api)
 * [Examples](#examples)
-* [Phalange (900 bytes alternative)](#phalange)
+* [Phalange (700 bytes alternative)](#phalange)
 * [Inspiration](#inspiration)
 
 ------------------------------------------------
@@ -206,15 +206,17 @@ let formObject = new FormSpine('/submit', {}, { messages: customMessages });
 
 [Preact Demo](http://codepen.io/LasseRafn/pen/qrKMgG/)
 
+[Angular Demo](http://codepen.io/LasseRafn/pen/qrKMgG/) **TODO**
+
 ------------------------------------------------
 
 ## Phalange
 
 Don't care about client-side validation, and does every byte count? How about using **Phalange**?
 
-It's a `~0.9kb` version of FormSpine, without the Validation library. It still handles errors, but will not validate fields.
+It's a `~0.7kb` version of FormSpine, without the Validation library. It still handles errors, but will not validate fields.
 
-[Get Phalange here](#) <-- COMING SOON
+[Get Phalange here](https://github.com/LasseRafn/Phalange) <-- COMING SOON
 
 ------------------------------------------------
 
