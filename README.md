@@ -216,7 +216,7 @@ Don't care about client-side validation, and does every byte count? How about us
 
 It's a `~0.7kb` version of FormSpine, without the Validation library. It still handles errors, but will not validate fields.
 
-[Get Phalange here](https://github.com/LasseRafn/Phalange) <-- COMING SOON
+[Get Phalange here](https://github.com/LasseRafn/Phalange)
 
 ------------------------------------------------
 
