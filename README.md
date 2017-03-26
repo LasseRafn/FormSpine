@@ -206,7 +206,7 @@ let formObject = new FormSpine('/submit', {}, { messages: customMessages });
 
 [Preact Demo](http://codepen.io/LasseRafn/pen/qrKMgG/)
 
-[Angular Demo](http://codepen.io/LasseRafn/pen/qrKMgG/) **TODO**
+[Angular Demo](http://codepen.io/LasseRafn/pen/RpBqRj/)
 
 ------------------------------------------------
 
