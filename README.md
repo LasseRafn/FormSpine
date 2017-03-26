@@ -202,11 +202,11 @@ let formObject = new FormSpine('/submit', {}, { messages: customMessages });
 
 ## Examples
 
-[Vue Demo](http://codepen.io/LasseRafn/pen/RpJMLY/)
+[Vue Demo](http://codepen.io/LasseRafn/full/RpJMLY/)
 
-[Preact Demo](http://codepen.io/LasseRafn/pen/qrKMgG/)
+[Preact Demo](http://codepen.io/LasseRafn/full/qrKMgG/)
 
-[Angular Demo](http://codepen.io/LasseRafn/pen/RpBqRj/)
+[Angular Demo](http://codepen.io/LasseRafn/full/RpBqRj/)
 
 ------------------------------------------------
 
