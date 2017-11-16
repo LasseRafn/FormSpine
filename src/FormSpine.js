@@ -3,14 +3,30 @@ import Validator from "./Validator";
 
 class FormSpine {
 	constructor(url, fields, options) {
-		this.options = options || {};
+		this.setOptions(options || {});
 		this.errors = new ErrorBag;
 		this.setupFields(fields);
-		this.url = url;
-		this.headers = {'Content-Type': 'application/json'};
-		this.resetOnSuccess = this.options.resetOnSuccess || false;
+		this.setUrl(url);
+		this.setHeaders({'Content-Type': 'application/json'});
+		this.setResetOnSuccess(this.options.resetOnSuccess || false);
 		this.validator = new Validator(this.options.messages || {});
+	}
+
+	setUrl(url) {
+		this.url = url;
+	}
+
+	setHeaders(headers) {
+		this.headers = headers;
 		this.headers = Object.assign(this.headers, this.options['headers'] || {});
+	}
+
+	setOptions(options) {
+		this.options = options;
+	}
+
+	setResetOnSuccess(resetOnSuccess) {
+		this.resetOnSuccess = resetOnSuccess;
 	}
 
 	setupFields(fields) {
@@ -52,12 +68,20 @@ class FormSpine {
 		this.errors.clear();
 	}
 
+	validate(field) {
+		if (field) {
+			return this.validator.validate([this.fields[field]]);
+		}
+
+		return this.validator.validate(this.fields);
+	}
+
 	submit(method) {
 		const self = this;
 		self.errors.clear();
 
 		return new Promise(function (resolve, reject) {
-				const validationResponse = self.validator.validate(self.fields);
+				const validationResponse = self.validate();
 
 				if (Object.keys(validationResponse).length > 0) {
 					self.errors.set(validationResponse);

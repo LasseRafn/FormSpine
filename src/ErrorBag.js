@@ -22,6 +22,10 @@ class ErrorBag {
 	}
 
 	first(field) {
+		if (!field) {
+			return this.errors[Object.keys(this.errors)[0]];
+		}
+
 		const errors = this.get(field);
 
 		return errors.length > 0 ? errors[0] : false;
